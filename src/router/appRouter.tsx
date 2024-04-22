@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useSelector } from 'react-redux';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { selectIsAuthenticated } from '../redux/selectors/authSelector';
+import { firebaseAuth } from '../firebase/firebaseAuth';
 
 import { appRoutes } from './appRoutes/appRoutes';
 import { authRoutes } from './authRoutes/authRoutes';
 
 export const useRouter = (): any => {
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const [user] = useAuthState(firebaseAuth);
 
-  if (isAuthenticated) {
+  if (user) {
     return appRoutes;
   }
 

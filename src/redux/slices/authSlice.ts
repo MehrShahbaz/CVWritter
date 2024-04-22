@@ -1,40 +1,65 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AuthSliceState } from 'types/authTypes';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
-const initialState: AuthSliceState = {
-  isAuthenticated: false,
-  isAuthLoading: false,
-};
-const authSlice = createSlice({
-  name: 'category',
-  initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchCategories.pending, (state, _action) => {
-      state.isAuthLoading = true;
-    });
-    builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      state.isAuthLoading = false;
+import { isEmail } from 'helpers/appHelper';
+import { getFriendlyMessageFromFirebaseErrorCode } from 'helpers/firebaseHelper';
 
-      if (action.payload) {
-        state.isAuthenticated = action.payload;
+import { firebaseAuth } from '../../firebase/firebaseAuth';
+
+import { showToast } from './toastSlice';
+
+export const loginWithEmail = createAsyncThunk(
+  'login',
+  async (args: { type: 'login' | 'sign-up'; email: string; password: string }, { dispatch }) => {
+    try {
+      if (!isEmail(args.email)) {
+        dispatch(
+          showToast({
+            message: 'Enter a valid email',
+            type: 'info',
+          })
+        );
+
+        return;
       }
-    });
-    builder.addCase(fetchCategories.rejected, (state, _action) => {
-      state.isAuthLoading = false;
-    });
-  },
-});
 
-export const fetchCategories = createAsyncThunk('category/fetchCategories', async (isAuthenticated: boolean) => {
+      if (args.password.length < 6) {
+        dispatch(
+          showToast({
+            message: 'Password should be atleast 6 characters',
+            type: 'info',
+          })
+        );
+
+        return;
+      }
+
+      if (args.type === 'sign-up') {
+        await createUserWithEmailAndPassword(firebaseAuth, args.email, args.password);
+      }
+
+      await signInWithEmailAndPassword(firebaseAuth, args.email, args.password);
+    } catch (e: any) {
+      dispatch(
+        showToast({
+          message: getFriendlyMessageFromFirebaseErrorCode(e.code),
+          type: 'error',
+        })
+      );
+    }
+  }
+);
+
+export const logout = createAsyncThunk('logout', async (_, { dispatch }) => {
   try {
-    console.log('Try');
-
-    return isAuthenticated;
-  } catch (err: any) {
-    console.log(err);
+    await signOut(firebaseAuth);
+  } catch (e: any) {
+    dispatch(
+      showToast({
+        message: getFriendlyMessageFromFirebaseErrorCode(e.code),
+        type: 'error',
+      })
+    );
   }
 });
-
-export default authSlice.reducer;
