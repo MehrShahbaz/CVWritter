@@ -1,8 +1,22 @@
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+
 import GoogleGLogo from 'assets/google-g-logo.svg';
 
+import { firebaseAuth } from '../../../firebase/firebaseAuth';
+
+const provider = new GoogleAuthProvider();
 const LoginWithGoogleButton = (): JSX.Element => {
-  const loginWithGoogle = (): void => {
-    console.log('loginWithGoogle');
+  const loginWithGoogle = async (): Promise<void> => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, provider);
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      const user = result.user;
+
+      console.log(user, token);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
