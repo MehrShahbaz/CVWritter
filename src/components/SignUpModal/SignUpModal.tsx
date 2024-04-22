@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { AppDispatch } from '@/redux/store';
 import Input from 'components/_shared/Input/Input';
 import LoadingButton from 'components/_shared/LoadingButton/Loadingbutton';
 import LoginWithGoogleButton from 'components/_shared/LoginWithGoogleButton/LoginWithGoogleButton';
 import Modal from 'components/_shared/Modal/Modal';
+
+import { loginWithEmail } from '../../redux/slices/authSlice';
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -11,6 +15,7 @@ interface SignUpModalProps {
 }
 
 const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
+  const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisableSubmit, setDisableSubmit] = useState(true);
@@ -24,8 +29,18 @@ const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
   }, [email, password]);
 
   const signUpWithEmail = useCallback(async () => {
-    console.log('signUpWithEmail');
-  }, []);
+    await dispatch(
+      loginWithEmail({
+        type: 'sign-up',
+        email,
+        password,
+      })
+    )
+      .unwrap()
+      .then(() => {
+        setOpen(false);
+      });
+  }, [dispatch, email, password, setOpen]);
 
   return (
     <Modal show={isOpen} setShow={setOpen}>
