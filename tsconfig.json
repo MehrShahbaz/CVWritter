@@ -22,9 +22,7 @@
     "baseUrl": "./src", // Set the base URL for module resolution
     "paths": {
       "*": ["*", "src/*", "src/components/*", "src/redux/*"],
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [

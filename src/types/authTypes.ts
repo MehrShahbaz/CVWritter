@@ -1,4 +1,4 @@
 export type AuthSliceState = {
-  isLoggedIn: boolean;
+  isAuthenticated: boolean;
   isAuthLoading: boolean;
 };

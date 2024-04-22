@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AuthSliceState } from 'types/authTypes';
 
 const initialState: AuthSliceState = {
-  isLoggedIn: false,
+  isAuthenticated: false,
   isAuthLoading: false,
 };
 const authSlice = createSlice({
@@ -14,8 +14,12 @@ const authSlice = createSlice({
     builder.addCase(fetchCategories.pending, (state, _action) => {
       state.isAuthLoading = true;
     });
-    builder.addCase(fetchCategories.fulfilled, (state, _action) => {
+    builder.addCase(fetchCategories.fulfilled, (state, action) => {
       state.isAuthLoading = false;
+
+      if (action.payload) {
+        state.isAuthenticated = action.payload;
+      }
     });
     builder.addCase(fetchCategories.rejected, (state, _action) => {
       state.isAuthLoading = false;
@@ -23,9 +27,11 @@ const authSlice = createSlice({
   },
 });
 
-export const fetchCategories = createAsyncThunk('category/fetchCategories', async () => {
+export const fetchCategories = createAsyncThunk('category/fetchCategories', async (isAuthenticated: boolean) => {
   try {
     console.log('Try');
+
+    return isAuthenticated;
   } catch (err: any) {
     console.log(err);
   }
