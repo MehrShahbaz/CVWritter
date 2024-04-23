@@ -1,17 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useAuthState } from 'react-firebase-hooks/auth';
+// import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { firebaseAuth } from '../firebase/firebaseAuth';
+// import { firebaseAuth } from '../firebase/firebaseAuth';
 
 import { appRoutes } from './appRoutes/appRoutes';
-import { authRoutes } from './authRoutes/authRoutes';
+// import { authRoutes } from './authRoutes/authRoutes';
 
-export const useRouter = (): any => {
-  const [user] = useAuthState(firebaseAuth);
+export const useRouter = (): any =>
+  // const [user] = useAuthState(firebaseAuth);
 
-  if (user) {
-    return appRoutes;
-  }
+  // if (user) {
+  //   return appRoutes;
+  // }
 
-  return authRoutes;
-};
+  appRoutes;
