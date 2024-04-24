@@ -14,7 +14,7 @@ const UserEducation = ({ education }: UserEducationProps): JSX.Element => {
   return (
     <>
       <Heading heading="Education" />
-      <SubHeading heading={university} subHeading={location} isBold isMarginBottom />
+      <SubHeading heading={university} subHeading={location} isBold />
       <SubHeading heading={program} subHeading={convertDate(startDate, endDate)} />
     </>
   );

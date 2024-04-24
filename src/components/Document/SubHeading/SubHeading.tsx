@@ -3,17 +3,18 @@ import { StyleSheet, Text, View } from '@react-pdf/renderer';
 type SubHeadingProps = {
   heading: string;
   subHeading?: string;
-  isMarginBottom?: boolean;
   isBold?: boolean;
+  willMarginTop?: boolean;
 };
 
-const SubHeading = ({ heading, subHeading, isMarginBottom = false, isBold = false }: SubHeadingProps): JSX.Element => {
+const SubHeading = ({ heading, subHeading, isBold = false, willMarginTop = false }: SubHeadingProps): JSX.Element => {
   const styles = StyleSheet.create({
     container: {
-      fontSize: 10, // Font size should be a number
-      fontWeight: isBold ? 700 : 400, // Use numerical values for font weight
+      fontFamily: isBold ? 'OpenSans' : 'OpenSansItalic',
+      fontSize: 10,
+      fontWeight: isBold ? 700 : 400,
       textTransform: 'capitalize',
-      marginBottom: isMarginBottom ? 5 : 0, // Margin should be a number
+      marginTop: willMarginTop ? 5 : 0,
     },
     heading: {
       textAlign: 'left',

@@ -13,9 +13,9 @@ type UserProjectsProps = {
 const UserProjects = ({ projects }: UserProjectsProps): JSX.Element => (
   <>
     <Heading heading="Projects" />
-    {projects.map(({ name, title, details }) => (
-      <View>
-        <SubHeading heading={name} isBold isMarginBottom />
+    {projects.map(({ name, title, details }, index) => (
+      <View key={index}>
+        <SubHeading heading={name} isBold willMarginTop={index !== 0} />
         {title && <SubHeading heading={title} />}
         <Details details={details} />
       </View>

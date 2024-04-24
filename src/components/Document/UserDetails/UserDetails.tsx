@@ -10,9 +10,11 @@ const styles = StyleSheet.create({
     marginBottom: '10px',
   },
   name: {
+    fontFamily: 'OpenSans',
     fontSize: '18px',
   },
   title: {
+    fontFamily: 'OpenSans',
     fontSize: '13px',
   },
   contactInfo: {
@@ -46,11 +48,11 @@ const UserDetails = ({ userDetails }: UserDetailsProps): JSX.Element => {
       </header>
       <section style={styles.container}>
         <Text style={styles.contactInfo}>
-          {address} | {phoneNumber} |{' '}
+          {address} | {phoneNumber} |&nbsp;
           <Link href={linkedinUrl} style={styles.link}>
-            LinkedIn Profile
-          </Link>{' '}
-          |{' '}
+            LinkedIn
+          </Link>
+          &nbsp;|&nbsp;
           <Link href={`mailto:${email}`} style={styles.link}>
             {email}
           </Link>

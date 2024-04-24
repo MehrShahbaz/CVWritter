@@ -6,13 +6,15 @@ type DetailsProps = {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 0,
+    margin: -4,
     flexDirection: 'row',
-    marginLeft: '5px',
+    marginLeft: 8,
     alignItems: 'center',
   },
   text: {
-    marginLeft: '5px',
-    fontSize: '10px',
+    marginLeft: 5,
+    fontSize: 10,
   },
 });
 const Details = ({ details }: DetailsProps): JSX.Element => (

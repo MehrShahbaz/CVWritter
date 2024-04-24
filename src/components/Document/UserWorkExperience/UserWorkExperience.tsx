@@ -14,9 +14,9 @@ type UserWorkExperienceProps = {
 const UserWorkExperience = ({ workExperience }: UserWorkExperienceProps): JSX.Element => (
   <>
     <Heading heading="Work Experience" />
-    {workExperience.map(({ organization, location, title, startDate, endDate, details }) => (
-      <View>
-        <SubHeading heading={organization} subHeading={location} isMarginBottom isBold />
+    {workExperience.map(({ organization, location, title, startDate, endDate, details }, index) => (
+      <View key={index}>
+        <SubHeading heading={organization} subHeading={location} isBold willMarginTop={index !== 0} />
         <SubHeading heading={title} subHeading={convertDate(startDate, endDate)} />
         <Details details={details} />
       </View>

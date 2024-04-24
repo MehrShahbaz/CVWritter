@@ -3,10 +3,11 @@ import { StyleSheet, Text, View } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
+    fontFamily: 'OpenSans',
   },
   title: {
     fontSize: 10,
-    fontWeight: 'extrabold',
+    fontWeight: 'bold',
     textTransform: 'uppercase',
   },
   line: {
