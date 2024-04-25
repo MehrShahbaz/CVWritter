@@ -1,6 +1,5 @@
 import { View } from '@react-pdf/renderer';
-
-import { WorkExperienceType } from '@/types/userTypes';
+import { WorkExperienceType } from 'types/userTypes';
 
 import { convertDate } from '../../../helpers/appHelper';
 import Details from '../Details/Details';

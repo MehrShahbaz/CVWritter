@@ -1,6 +1,5 @@
 import { Link, StyleSheet, Text } from '@react-pdf/renderer';
-
-import { UserDetailsType } from '@/types/userTypes';
+import { UserDetailsType } from 'types/userTypes';
 
 import Heading from '../Heading/Heading';
 

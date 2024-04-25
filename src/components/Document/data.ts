@@ -1,4 +1,4 @@
-import { UserDatatype } from '@/types/userTypes';
+import { UserDatatype } from 'types/userTypes';
 
 const dummyData: UserDatatype = {
   userDetails: {

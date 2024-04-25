@@ -1,16 +1,13 @@
 import { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { logout } from '../../../redux/slices/authSlice';
-import { AppDispatch } from '../../../redux/store';
+import { logout } from '../../../services/authenticationSerive';
 import Modal from '../Modal/Modal';
 
 const LogoutButton = (): JSX.Element => {
-  const dispatch = useDispatch<AppDispatch>();
   const [isOpen, setOpen] = useState(false);
   const loggedOut = useCallback(() => {
-    dispatch(logout());
-  }, [dispatch]);
+    logout();
+  }, []);
 
   return (
     <>

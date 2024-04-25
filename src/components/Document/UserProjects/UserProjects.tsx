@@ -1,6 +1,5 @@
 import { View } from '@react-pdf/renderer';
-
-import { ProjectsType } from '@/types/userTypes';
+import { ProjectsType } from 'types/userTypes';
 
 import Details from '../Details/Details';
 import Heading from '../Heading/Heading';

@@ -1,17 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-import Input from 'components/_shared/Input/Input';
-import LoadingButton from 'components/_shared/LoadingButton/Loadingbutton';
-import LoginWithGoogleButton from 'components/_shared/LoginWithGoogleButton/LoginWithGoogleButton';
-import ToastBox from 'components/_shared/ToastBox/ToastBox';
+import Input from 'components/shared/Input/Input';
+import LoadingButton from 'components/shared/LoadingButton/LoadingButton';
+import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
 import SignUpModal from 'components/SignUpModal/SignUpModal';
 
-import { loginWithEmail } from '../../redux/slices/authSlice';
-import { AppDispatch } from '../../redux/store';
+import { loginWithEmail } from '../../services/authenticationSerive';
 
 const LoginPage = (): JSX.Element => {
-  const dispatch = useDispatch<AppDispatch>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisableSubmit, setDisableSubmit] = useState(true);
@@ -26,14 +22,12 @@ const LoginPage = (): JSX.Element => {
   }, [email, password]);
 
   const signInWithEmail = useCallback(async () => {
-    await dispatch(
-      loginWithEmail({
-        type: 'login',
-        email,
-        password,
-      })
-    );
-  }, [dispatch, email, password]);
+    await loginWithEmail({
+      type: 'login',
+      email,
+      password,
+    });
+  }, [email, password]);
 
   return (
     <div className="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
@@ -91,7 +85,6 @@ const LoginPage = (): JSX.Element => {
           <SignUpModal isOpen={isShowRegistration} setOpen={setshowRegistration} />
         </div>
       </div>
-      <ToastBox />
     </div>
   );
 };

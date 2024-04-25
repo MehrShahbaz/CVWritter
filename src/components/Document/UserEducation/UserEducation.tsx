@@ -1,4 +1,4 @@
-import { EducationType } from '@/types/userTypes';
+import { EducationType } from 'types/userTypes';
 
 import { convertDate } from '../../../helpers/appHelper';
 import Heading from '../Heading/Heading';

@@ -1,6 +1,6 @@
 import Accordion from 'react-bootstrap/Accordion';
 
-import dummyData from '../../../components/Document/data';
+import dummyData from 'components/Document/data';
 
 const UserDetailsForm = (): JSX.Element => {
   const { userDetails } = dummyData;

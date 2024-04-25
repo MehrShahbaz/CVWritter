@@ -39,3 +39,10 @@ export type UserDatatype = {
   projects: ProjectsType[];
   skills: string[];
 };
+
+export type GoogleUserCreateType = {
+  email: string | null;
+  emailVerified: boolean;
+  displayName: string | null;
+  photoURL: string | null;
+};

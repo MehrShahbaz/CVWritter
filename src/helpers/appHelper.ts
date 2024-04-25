@@ -1,3 +1,6 @@
+import { User } from 'firebase/auth';
+import { GoogleUserCreateType } from 'types/userTypes';
+
 export const isEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -29,3 +32,10 @@ export const chunkArray = (array: string[], n: number): string[][] => {
 };
 
 export const convertDate = (startDate?: string, endDate?: string): string => `${startDate ?? ''} - ${endDate ?? ''}`;
+
+export const createUserData = (user: User): GoogleUserCreateType => ({
+  email: user.email,
+  emailVerified: user.emailVerified,
+  displayName: user.displayName,
+  photoURL: user.photoURL,
+});

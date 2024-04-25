@@ -2,7 +2,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 import AppleLogo from 'assets/apple-logo.svg';
 
-import { firebaseAuth } from '../../../firebase/firebaseAuth';
+import { firebaseAuth } from '../../../firebaseConfig/firebaseAuth';
 
 const provider = new GoogleAuthProvider();
 const LoginWithAppleButton = (): JSX.Element => {
