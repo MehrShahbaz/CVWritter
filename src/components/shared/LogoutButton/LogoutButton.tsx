@@ -17,9 +17,8 @@ const LogoutButton = (): JSX.Element => {
       >
         Logout
       </button>
-      <Modal show={isOpen} setShow={setOpen}>
+      <Modal show={isOpen} setShow={setOpen} heading="Logout ?">
         <div className="max-w-md w-full bg-white py-6 rounded-lg">
-          <h2 className="text-lg font-semibold text-center mb-10">Logout ?</h2>
           <div className="px-4 flex p-4 pb-10 gap-4 flex-col">
             <button onClick={() => setOpen(false)} className="px-6 py-3 bg-violet-200 rounded-lg hover:bg-violet-300">
               Cancel

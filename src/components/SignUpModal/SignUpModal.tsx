@@ -36,9 +36,8 @@ const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
   }, [email, password, setOpen]);
 
   return (
-    <Modal show={isOpen} setShow={setOpen}>
-      <div className="max-w-md w-full bg-white py-6 rounded-lg">
-        <h2 className="text-lg font-semibold text-center mb-10">Sign Up</h2>
+    <Modal show={isOpen} setShow={setOpen} heading="Sign Up">
+      <div className="max-w-md w-full bg-white rounded-lg">
         <div className="px-4 flex p-4 pb-10 gap-4 flex-col">
           <Input
             value={email}

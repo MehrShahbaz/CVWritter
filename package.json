@@ -21,7 +21,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "firebase": "^10.11.0",
-    "formik": "^2.4.5",
+    "formik": "^2.4.6",
     "lodash": "^4.17.21",
     "prettier": "^2.8.8",
     "react": "^18.2.0",

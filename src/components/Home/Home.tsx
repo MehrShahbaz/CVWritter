@@ -1,7 +1,7 @@
 // import { PDFViewer } from '@react-pdf/renderer';
 
-import Organization from '../Organization/Organization';
 import Navbar from '../shared/Navbar/Navbar';
+import Organization from '../UserJobs/UserJobs';
 // import Document from '../Document/Document';
 // import UserForm from '../UserForm/UserForm';
 

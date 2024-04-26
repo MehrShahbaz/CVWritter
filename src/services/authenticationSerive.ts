@@ -21,18 +21,21 @@ export const createUser = async (args: GoogleUserCreateType): Promise<void> => {
   }
 };
 
-export const loginWithGoogle = async (): Promise<void> => {
+export const loginWithGoogle = async (): Promise<GoogleUserCreateType> => {
   try {
     const result = await signInWithPopup(firebaseAuth, provider);
     const credential = GoogleAuthProvider.credentialFromResult(result);
     const token = credential?.accessToken;
     const user = result.user;
-
-    await createUser(createUserData(user));
+    const data = createUserData(user);
 
     console.log(token);
+    await createUser(data);
+
+    return data;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 };
 
