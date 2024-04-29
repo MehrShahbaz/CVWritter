@@ -6,7 +6,7 @@ const UserSkillsForm = (): JSX.Element => {
   const { skills } = dummyData;
 
   return (
-    <Accordion.Item eventKey={`4`}>
+    <Accordion.Item eventKey={`5`}>
       <Accordion.Header>Skills</Accordion.Header>
       <Accordion.Body>
         <div className="p-4 bg-gray-100 rounded-lg shadow-md">

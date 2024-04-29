@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 });
 const MyDocument = (): JSX.Element => {
   const { selectedJob } = useJobs();
-  const { userDetails, experience, projects, skills } = dummyData;
+  const { personalDetails, jobDetails, experience, projects, skills } = dummyData;
 
   if (!selectedJob) {
     return <div />;
@@ -45,7 +45,7 @@ const MyDocument = (): JSX.Element => {
       <PDFViewer style={{ width: '100%', height: '100vh' }}>
         <Document title="FirstCV" keywords="CV">
           <Page size="A4" style={styles.page}>
-            <UserDetails userDetails={userDetails} />
+            <UserDetails personalDetails={personalDetails} jobDetails={jobDetails} />
             <UserEducation education={userData.education} />
             <UserWorkExperience workExperience={experience} />
             <UserProjects projects={projects} />

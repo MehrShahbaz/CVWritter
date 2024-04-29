@@ -11,7 +11,7 @@ const UserEducationForm = ({ userData, handleUpdate }: UserComponentType): JSX.E
   const [isEdit, setEdit] = useState(false);
 
   return (
-    <Accordion.Item eventKey={`1`} className="relative">
+    <Accordion.Item eventKey={`2`} className="relative">
       <Accordion.Header>Education</Accordion.Header>
       <Accordion.Body>
         <div>

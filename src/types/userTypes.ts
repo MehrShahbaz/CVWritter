@@ -1,11 +1,14 @@
-export type UserDetailsType = {
+export type UserPersonalDetailsType = {
   firstName: string;
   lastName: string;
-  title: string;
   address: string;
   linkedinUrl: string;
   phoneNumber: string;
   email: string;
+};
+
+export type UserJobDetailsType = {
+  title: string;
   aboutMe: string;
 };
 
@@ -33,7 +36,8 @@ export type ProjectsType = {
 };
 
 export type UserDatatype = {
-  userDetails: UserDetailsType;
+  personalDetails: UserPersonalDetailsType;
+  jobDetails: UserJobDetailsType;
   education: EducationType;
   experience: WorkExperienceType[];
   projects: ProjectsType[];

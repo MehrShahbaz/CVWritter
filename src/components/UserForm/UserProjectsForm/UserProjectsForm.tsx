@@ -6,7 +6,7 @@ const UserProjectsForm = (): JSX.Element => {
   const { projects } = dummyData;
 
   return (
-    <Accordion.Item eventKey={`3`}>
+    <Accordion.Item eventKey={`4`}>
       <Accordion.Header>Projects</Accordion.Header>
       <Accordion.Body>
         {projects.map((project, index) => (

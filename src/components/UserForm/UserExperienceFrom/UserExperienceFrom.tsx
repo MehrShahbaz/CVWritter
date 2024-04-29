@@ -6,7 +6,7 @@ const UserExperienceForm = (): JSX.Element => {
   const { experience } = dummyData;
 
   return (
-    <Accordion.Item eventKey={`2`}>
+    <Accordion.Item eventKey={`3`}>
       <Accordion.Header>Experience</Accordion.Header>
       <Accordion.Body>
         {experience.map((exp, index) => (

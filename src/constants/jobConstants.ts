@@ -9,14 +9,16 @@ export const FORM_INTIAL_VALUES: JobFormType = {
 };
 
 export const emptyUserDetailsData: UserDatatype = {
-  userDetails: {
+  personalDetails: {
     firstName: '',
     lastName: '',
-    title: '',
     address: '',
     linkedinUrl: '',
     phoneNumber: '',
     email: '',
+  },
+  jobDetails: {
+    title: '',
     aboutMe: '',
   },
   education: {

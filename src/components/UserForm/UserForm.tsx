@@ -9,6 +9,7 @@ import { updateJob } from 'services/jobsService';
 import UserDetailsForm from './UserDetailsForm/UserDetailsForm';
 import UserEducationForm from './UserEducationForm/UserEducationForm';
 import UserExperienceForm from './UserExperienceFrom/UserExperienceFrom';
+import UserPersonalDetailsForm from './UserPersonalDetailsForm/UserPersonalDetailsForm';
 import UserProjectsForm from './UserProjectsForm/UserProjectsForm';
 import UserSkillsForm from './UserSkillsForm/UserSkillsForm';
 
@@ -36,6 +37,7 @@ const UserForm = (): JSX.Element => {
 
   return (
     <Accordion>
+      <UserPersonalDetailsForm />
       <UserDetailsForm />
       <UserEducationForm handleUpdate={handleUpdate} userData={userData} />
       <UserExperienceForm />
