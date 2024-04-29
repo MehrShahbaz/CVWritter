@@ -38,11 +38,11 @@ const UserForm = (): JSX.Element => {
   return (
     <Accordion>
       <UserPersonalDetailsForm />
-      <UserDetailsForm />
+      <UserDetailsForm handleUpdate={handleUpdate} userData={userData} />
       <UserEducationForm handleUpdate={handleUpdate} userData={userData} />
       <UserExperienceForm />
       <UserProjectsForm />
-      <UserSkillsForm />
+      <UserSkillsForm handleUpdate={handleUpdate} userData={userData} />
     </Accordion>
   );
 };

@@ -8,11 +8,10 @@ import { JobCreateType, JobFormType } from 'types/jobTypes';
 import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
+import SelectSkills from 'components/shared/SelectSkills/SelectSkills';
 import { emptyUserDetailsData, FORM_INTIAL_VALUES } from 'constants/jobConstants';
 import { createJob } from 'services/jobsService';
 import { getAllSkills } from 'services/skillService';
-
-import SelectSkills from './SelectSkills/SelectSkills';
 
 type AddJobsModalProps = {
   isOpen: boolean;

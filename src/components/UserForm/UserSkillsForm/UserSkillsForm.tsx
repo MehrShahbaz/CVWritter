@@ -1,22 +1,30 @@
+import { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import { UserComponentType } from 'types/userTypes';
 
-import dummyData from '../../PdfDocument/data';
+import { EditIcon } from 'assets';
 
-const UserSkillsForm = (): JSX.Element => {
-  const { skills } = dummyData;
+import EditSkills from './EditSkills/EditSkills';
+import ShowSkills from './ShowSkills/ShowSkills';
+
+const UserSkillsForm = ({ userData, handleUpdate }: UserComponentType): JSX.Element => {
+  const [isEdit, setEdit] = useState(false);
 
   return (
     <Accordion.Item eventKey={`5`}>
       <Accordion.Header>Skills</Accordion.Header>
       <Accordion.Body>
+        <div className="flex justify-end mb-3">
+          <button onClick={() => setEdit(!isEdit)}>
+            <img src={EditIcon} alt="Edit Icon" height={20} width={20} />
+          </button>
+        </div>
         <div className="p-4 bg-gray-100 rounded-lg shadow-md">
-          <ul>
-            {skills.map((skill, index) => (
-              <li key={index} className="mb-2">
-                {skill}
-              </li>
-            ))}
-          </ul>
+          {isEdit ? (
+            <EditSkills userData={userData} handleUpdate={handleUpdate} setShowFalse={() => setEdit(false)} />
+          ) : (
+            <ShowSkills userData={userData} />
+          )}
         </div>
       </Accordion.Body>
     </Accordion.Item>

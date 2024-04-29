@@ -12,7 +12,7 @@ const SkillsFieldArray = (): JSX.Element => {
       render={(arrayHelpers) => {
         const { remove, push } = arrayHelpers;
         const { skills } = values;
-        const isDisabled = skills.length === 1;
+        const isDisabled = skills?.length === 1;
 
         return (
           <div>
@@ -26,7 +26,7 @@ const SkillsFieldArray = (): JSX.Element => {
                 +
               </button>
             </div>
-            {skills.map((_skill, index) => (
+            {skills?.map((_skill, index) => (
               <div>
                 <div key={index} className="flex justify-between items-center">
                   <div className="flex-grow mr-2">

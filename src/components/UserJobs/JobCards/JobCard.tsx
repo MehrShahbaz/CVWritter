@@ -15,7 +15,7 @@ const JobCard = (): JSX.Element => {
       {jobs.map(({ id, name, description, skills }, index) => (
         <div
           key={index}
-          style={{ maxHeight: '20rem', overflowY: 'auto' }}
+          style={{ maxHeight: '30rem', overflowY: 'auto' }}
           className="bg-white shadow-md p-4 rounded-md"
         >
           <div className="font-semibold">

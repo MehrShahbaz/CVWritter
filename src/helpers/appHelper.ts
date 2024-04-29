@@ -18,7 +18,6 @@ export const chunkArray = (array: string[], n: number): string[][] => {
     index += n;
   }
 
-  // Add empty strings to the last subarray to make its length equal to n
   const lastSubarray = chunkedArray[chunkedArray.length - 1];
   const lastSubarrayLength = lastSubarray.length;
 
@@ -33,7 +32,8 @@ export const chunkArray = (array: string[], n: number): string[][] => {
   return chunkedArray;
 };
 
-export const convertDate = (startDate?: string, endDate?: string): string => `${startDate ?? ''} - ${endDate ?? ''}`;
+export const convertDate = (startDate?: string, endDate?: string): string =>
+  `${startDate?.length ? startDate : 'Start'} - ${endDate?.length ? endDate : 'End'}`;
 
 export const createUserData = (user: User): GoogleUserCreateType => ({
   email: user.email,
