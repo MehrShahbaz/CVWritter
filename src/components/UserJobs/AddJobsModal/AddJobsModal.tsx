@@ -1,23 +1,32 @@
 import { useCallback } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { jobCreateFrom } from 'schema/jobSchema';
+import { JobType } from 'types/jobTypes';
 
 import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
 import { FORM_INTIAL_VALUES } from 'constants/jobConstants';
+import { addJob } from 'services/jobsService';
 
 import SkillsFieldArray from './SkillsFieldArray';
 
 type AddJobsModalProps = {
   isOpen: boolean;
   setOpen: (show: boolean) => void;
+  successCallback: () => void;
 };
 
-const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
-  const handleSubmit = useCallback(() => {
-    console.log('Submit');
-  }, []);
+const AddJobsModal = ({ isOpen, setOpen, successCallback }: AddJobsModalProps): JSX.Element => {
+  const handleSubmit = useCallback(
+    (values: JobType) => {
+      addJob(values).then(() => {
+        setOpen(false);
+        successCallback();
+      });
+    },
+    [setOpen, successCallback]
+  );
 
   return (
     <Modal show={isOpen} setShow={setOpen} heading="Add Job">

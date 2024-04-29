@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 
-import dummyData from '../../../components/Document/data';
+import dummyData from '../../PdfDocument/data';
 
 const UserEducationForm = (): JSX.Element => {
   const { education } = dummyData;

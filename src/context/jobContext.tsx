@@ -1,15 +1,9 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
-
-export type JobCreateType = {
-  description: string;
-  name: string;
-  skills: string[];
-  url: string;
-};
+import { JobType } from 'types/jobTypes';
 
 interface JobContextType {
-  jobs: JobCreateType[] | null;
-  setJob: (data: JobCreateType[] | null) => void;
+  jobs: JobType[] | null;
+  setJob: (data: JobType[] | null) => void;
 }
 
 const JobContext = createContext<JobContextType | null>(null);
@@ -19,8 +13,8 @@ interface JobProviderProps {
 }
 
 export const JobsProvider = ({ children }: JobProviderProps): JSX.Element => {
-  const [jobs, setJobState] = useState<JobCreateType[] | null>(null);
-  const setJob = (data: JobCreateType[] | null): void => {
+  const [jobs, setJobState] = useState<JobType[] | null>(null);
+  const setJob = (data: JobType[] | null): void => {
     setJobState(data);
   };
 

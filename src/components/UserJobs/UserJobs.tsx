@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useJobs } from 'context/jobContext';
 
 import { getAllJobs } from 'services/jobsService';
@@ -7,13 +7,17 @@ import AddJobsModal from './AddJobsModal/AddJobsModal';
 import JobCard from './JobCards/JobCard';
 
 const UserJobs = (): JSX.Element => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { setJob } = useJobs();
 
   useEffect(() => {
-    getAllJobs().then((res) => setJob(res));
+    onGetAllJobs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const onGetAllJobs = useCallback(() => {
+    getAllJobs().then((res) => setJob(res));
+  }, [setJob]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -29,7 +33,7 @@ const UserJobs = (): JSX.Element => {
       <div className="mt-8">
         <JobCard />
       </div>
-      {isModalOpen && <AddJobsModal isOpen={isModalOpen} setOpen={setIsModalOpen} />}
+      {isModalOpen && <AddJobsModal isOpen={isModalOpen} setOpen={setIsModalOpen} successCallback={onGetAllJobs} />}
     </div>
   );
 };

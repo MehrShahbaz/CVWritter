@@ -1,8 +1,7 @@
 import ReactDOM from 'react-dom/client';
-import { JobsProvider } from 'context/jobContext';
-import { UserProvider } from 'context/userContext';
-
-import App from './App';
+import { ReactNotifications } from 'react-notifications-component';
+import App from 'App';
+import { JobsProvider, LoadingProvider, UserProvider } from 'context';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
@@ -10,9 +9,12 @@ import './index.css';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <UserProvider>
-    <JobsProvider>
-      <App />
-    </JobsProvider>
-  </UserProvider>
+  <LoadingProvider>
+    <UserProvider>
+      <JobsProvider>
+        <ReactNotifications />
+        <App />
+      </JobsProvider>
+    </UserProvider>
+  </LoadingProvider>
 );

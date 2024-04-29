@@ -1,28 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { JobCreateType } from 'context/jobContext';
-import { collection, getDocs } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { firebaseDb } from 'firebaseConfig/firebaseDb';
+import { JobType } from 'types/jobTypes';
 
 import { getFriendlyMessageFromFirebaseErrorCode } from 'helpers/firebaseHelper';
 
-export const temp = {};
+export const addJob = async (data: JobType): Promise<void> => {
+  try {
+    const docRef = await addDoc(collection(firebaseDb, 'jobs'), data);
 
-// export const addJob = async (args: OrganizationType): Promise<void> => {
-//   try {
-//     console.log(args);
-//     const docRef = await addDoc(collection(firebaseDb, 'users'), {
-//       first: 'Ada',
-//       last: 'Lovelace',
-//       born: 1815,
-//     });
+    console.log(docRef);
 
-//     console.log('Document written with ID: ', docRef.id);
-//   } catch (e: any) {
-//     console.log(getFriendlyMessageFromFirebaseErrorCode(e));
-//   }
-// };
+    console.log('Document written with ID: ', docRef.id);
+  } catch (e: any) {
+    console.log(getFriendlyMessageFromFirebaseErrorCode(e));
+  }
+};
 
-export const getAllJobs = async (): Promise<JobCreateType[]> => {
+export const getAllJobs = async (): Promise<JobType[]> => {
   try {
     const querySnapshot = await getDocs(collection(firebaseDb, 'jobs'));
     const data: any = [];

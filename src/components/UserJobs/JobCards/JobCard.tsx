@@ -10,7 +10,11 @@ const JobCard = (): JSX.Element => {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {jobs.map(({ name, description, skills, url }, index) => (
-        <div key={index} className="bg-white shadow-md p-4 rounded-md">
+        <div
+          key={index}
+          style={{ maxHeight: '20rem', overflowY: 'auto' }}
+          className="bg-white shadow-md p-4 rounded-md"
+        >
           <div className="font-semibold">
             <a href={url} target="_blank" rel="noreferrer" className="text-blue-500 hover:underline">
               {name}

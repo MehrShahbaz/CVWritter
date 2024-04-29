@@ -1,6 +1,6 @@
-export type JobFormType = {
-  name: string;
+export type JobType = {
   description: string;
-  url: string;
+  name: string;
   skills: string[];
+  url: string;
 };

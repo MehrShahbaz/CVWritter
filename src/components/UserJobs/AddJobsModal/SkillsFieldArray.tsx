@@ -1,10 +1,10 @@
 import { Field, FieldArray, useFormikContext } from 'formik';
-import { JobFormType } from 'types/jobTypes';
+import { JobType } from 'types/jobTypes';
 
 import InputField from 'components/shared/InputField/InputField';
 
 const SkillsFieldArray = (): JSX.Element => {
-  const { values } = useFormikContext<JobFormType>();
+  const { values } = useFormikContext<JobType>();
 
   return (
     <FieldArray
