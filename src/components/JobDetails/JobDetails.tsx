@@ -25,12 +25,10 @@ const JobDetails = (): JSX.Element => {
   }, []);
 
   if (!selectedJob) {
-    return <div>Hello World</div>;
+    return <div>Loading!!</div>;
   }
 
-  const { name, description, url, skills, user_details: userDetails } = selectedJob;
-
-  console.log(userDetails);
+  const { name, description, url, skills } = selectedJob;
 
   return (
     <div>

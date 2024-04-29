@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { JobCreateType, JobType } from 'types/jobTypes';
+import { JobCreateType, JobType, JobUpdateType } from 'types/jobTypes';
 
 import { errorNotification } from 'helpers/appHelper';
 
@@ -33,6 +33,18 @@ export const getAllJobs = async (): Promise<JobType[]> => {
 export const getJob = async (id: string): Promise<JobType | null> => {
   try {
     const response = await jobActions.getJob(id);
+
+    return response.data;
+  } catch (err: any) {
+    errorNotification(err, 5000);
+
+    return null;
+  }
+};
+
+export const updateJob = async (id: string, data: JobUpdateType): Promise<JobType | null> => {
+  try {
+    const response = await jobActions.updateJob(id, data);
 
     return response.data;
   } catch (err: any) {

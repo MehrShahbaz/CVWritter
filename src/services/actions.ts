@@ -1,4 +1,4 @@
-import { JobCreateType } from 'types/jobTypes';
+import { JobCreateType, JobUpdateType } from 'types/jobTypes';
 
 import baseService from './baseService';
 
@@ -17,6 +17,7 @@ export const jobActions = {
   getAllJobs: () => baseService.get(urls.job.base),
   createjob: (data: JobCreateType) => baseService.post(urls.job.base, { job: data }),
   getJob: (id: string) => baseService.get(`${urls.job.base}/${id}`),
+  updateJob: (id: string, data: JobUpdateType) => baseService.patch(`${urls.job.base}/${id}`, { job: data }),
 };
 
 export const skillActions = {

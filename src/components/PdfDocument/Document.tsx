@@ -1,4 +1,6 @@
 import { Document, Font, Page, PDFViewer, StyleSheet } from '@react-pdf/renderer';
+import { useJobs } from 'context/jobContext';
+import { UserDatatype } from 'types/userTypes';
 
 import OpenSansBold from '../../fonts/Open_Sans/OpenSans-Bold.ttf';
 import OpenSansItalic from '../../fonts/Open_Sans/OpenSans-Italic.ttf';
@@ -29,7 +31,14 @@ const styles = StyleSheet.create({
   },
 });
 const MyDocument = (): JSX.Element => {
-  const { userDetails, education, experience, projects, skills } = dummyData;
+  const { selectedJob } = useJobs();
+  const { userDetails, experience, projects, skills } = dummyData;
+
+  if (!selectedJob) {
+    return <div />;
+  }
+
+  const userData: UserDatatype = JSON.parse(selectedJob.user_details);
 
   return (
     <div className="p-5">
@@ -37,7 +46,7 @@ const MyDocument = (): JSX.Element => {
         <Document title="FirstCV" keywords="CV">
           <Page size="A4" style={styles.page}>
             <UserDetails userDetails={userDetails} />
-            <UserEducation education={education} />
+            <UserEducation education={userData.education} />
             <UserWorkExperience workExperience={experience} />
             <UserProjects projects={projects} />
             <UserSkills skills={skills} />

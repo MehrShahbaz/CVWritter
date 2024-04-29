@@ -46,3 +46,18 @@ export type GoogleUserCreateType = {
   displayName: string | null;
   photoURL: string | null;
 };
+
+export type UserComponentType = {
+  handleUpdate: (data: UserDatatype) => void;
+  userData: UserDatatype;
+};
+
+export type DetailsComponentProps = {
+  userData: UserDatatype;
+};
+
+export type DetailsEditProps = {
+  handleUpdate: (data: UserDatatype) => void;
+  userData: UserDatatype;
+  setShowFalse: () => void;
+};

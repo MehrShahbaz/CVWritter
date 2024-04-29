@@ -23,3 +23,11 @@ export type JobCreateType = {
   url: string;
   user_details: string;
 };
+
+export type JobUpdateType = {
+  description?: string;
+  name?: string;
+  skill_ids?: string[];
+  url?: string;
+  user_details?: string;
+};
