@@ -1,6 +1,6 @@
 import Accordion from 'react-bootstrap/Accordion';
 
-import dummyData from '../../../components/Document/data';
+import dummyData from '../../PdfDocument/data';
 
 const UserProjectsForm = (): JSX.Element => {
   const { projects } = dummyData;

@@ -1,13 +1,11 @@
-import { RouterProvider } from 'react-router-dom';
-
-import { useRouter } from './router/appRouter';
+import RouterConfig from 'routes/RouterConfig';
 
 import './App.css';
 
-const App = (): JSX.Element => {
-  const router = useRouter();
-
-  return <RouterProvider router={router} />;
-};
+const App = (): JSX.Element => (
+  <div id="App">
+    <RouterConfig />
+  </div>
+);
 
 export default App;
