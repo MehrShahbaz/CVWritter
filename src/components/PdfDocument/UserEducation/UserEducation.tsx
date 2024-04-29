@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { EducationType } from 'types/userTypes';
 
 import { convertDate } from '../../../helpers/appHelper';

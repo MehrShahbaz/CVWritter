@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { ContextProviderProps } from 'types/authTypes';
 
 interface LoadingContextType {
   isLoading: boolean | null;
@@ -7,11 +8,7 @@ interface LoadingContextType {
 
 const LoadingContext = createContext<LoadingContextType | null>(null);
 
-interface LoadingProviderProps {
-  children: ReactNode;
-}
-
-export const LoadingProvider = ({ children }: LoadingProviderProps): JSX.Element => {
+export const LoadingProvider = ({ children }: ContextProviderProps): JSX.Element => {
   const [isLoading, setLoading] = useState<boolean | null>(null);
   const setIsLoading = (willLoad: boolean | null): void => {
     setLoading(willLoad);

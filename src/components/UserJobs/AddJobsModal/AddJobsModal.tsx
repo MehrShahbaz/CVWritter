@@ -1,31 +1,54 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useJobs } from 'context/jobContext';
+import { useSkill } from 'context/skillContext';
 import { Field, Form, Formik } from 'formik';
 import { jobCreateFrom } from 'schema/jobSchema';
-import { JobType } from 'types/jobTypes';
+import { JobCreateType, JobFormType } from 'types/jobTypes';
 
 import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
-import { FORM_INTIAL_VALUES } from 'constants/jobConstants';
-import { addJob } from 'services/jobsService';
+import { emptyUserDetailsData, FORM_INTIAL_VALUES } from 'constants/jobConstants';
+import { createJob } from 'services/jobsService';
+import { getAllSkills } from 'services/skillService';
 
-import SkillsFieldArray from './SkillsFieldArray';
+import SelectSkills from './SelectSkills/SelectSkills';
 
 type AddJobsModalProps = {
   isOpen: boolean;
   setOpen: (show: boolean) => void;
-  successCallback: () => void;
 };
 
-const AddJobsModal = ({ isOpen, setOpen, successCallback }: AddJobsModalProps): JSX.Element => {
+const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
+  const { setSkills } = useSkill();
+  const { appendJob } = useJobs();
+
+  useEffect(() => {
+    onGetAllSkills();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onGetAllSkills = useCallback(() => {
+    getAllSkills().then((res) => setSkills(res));
+  }, [setSkills]);
   const handleSubmit = useCallback(
-    (values: JobType) => {
-      addJob(values).then(() => {
-        setOpen(false);
-        successCallback();
+    (values: JobFormType) => {
+      const data: JobCreateType = {
+        name: values.name,
+        description: values.description,
+        url: values.url,
+        skill_ids: values.skills.map(({ id }) => id),
+        user_details: JSON.stringify(emptyUserDetailsData),
+      };
+
+      createJob(data).then((res) => {
+        if (res) {
+          appendJob(res);
+          setOpen(false);
+        }
       });
     },
-    [setOpen, successCallback]
+    [appendJob, setOpen]
   );
 
   return (
@@ -61,7 +84,7 @@ const AddJobsModal = ({ isOpen, setOpen, successCallback }: AddJobsModalProps): 
                       errors={errors.description}
                       component={InputTextField}
                     />
-                    <SkillsFieldArray />
+                    <Field name="skills" component={SelectSkills} />
                     <div className="flex justify-end gap-4 mt-3">
                       <button
                         onClick={() => setOpen(false)}
