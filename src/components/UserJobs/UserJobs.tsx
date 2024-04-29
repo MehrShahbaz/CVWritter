@@ -8,7 +8,7 @@ import JobCard from './JobCards/JobCard';
 
 const UserJobs = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setJob } = useJobs();
+  const { setJobs } = useJobs();
 
   useEffect(() => {
     onGetAllJobs();
@@ -16,8 +16,8 @@ const UserJobs = (): JSX.Element => {
   }, []);
 
   const onGetAllJobs = useCallback(() => {
-    getAllJobs().then((res) => setJob(res));
-  }, [setJob]);
+    getAllJobs().then((res) => setJobs(res));
+  }, [setJobs]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -33,7 +33,7 @@ const UserJobs = (): JSX.Element => {
       <div className="mt-8">
         <JobCard />
       </div>
-      {isModalOpen && <AddJobsModal isOpen={isModalOpen} setOpen={setIsModalOpen} successCallback={onGetAllJobs} />}
+      {isModalOpen && <AddJobsModal isOpen={isModalOpen} setOpen={setIsModalOpen} />}
     </div>
   );
 };

@@ -7,7 +7,7 @@ import UserProjectsForm from './UserProjectsForm/UserProjectsForm';
 import UserSkillsForm from './UserSkillsForm/UserSkillsForm';
 
 const UserForm = (): JSX.Element => (
-  <Accordion defaultActiveKey="0">
+  <Accordion>
     <UserDetailsForm />
     <UserEducationForm />
     <UserExperienceForm />

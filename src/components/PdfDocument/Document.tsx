@@ -1,4 +1,4 @@
-import { Document, Font, Page, StyleSheet } from '@react-pdf/renderer';
+import { Document, Font, Page, PDFViewer, StyleSheet } from '@react-pdf/renderer';
 
 import OpenSansBold from '../../fonts/Open_Sans/OpenSans-Bold.ttf';
 import OpenSansItalic from '../../fonts/Open_Sans/OpenSans-Italic.ttf';
@@ -32,15 +32,19 @@ const MyDocument = (): JSX.Element => {
   const { userDetails, education, experience, projects, skills } = dummyData;
 
   return (
-    <Document title="FirstCV" keywords="CV">
-      <Page size="A4" style={styles.page}>
-        <UserDetails userDetails={userDetails} />
-        <UserEducation education={education} />
-        <UserWorkExperience workExperience={experience} />
-        <UserProjects projects={projects} />
-        <UserSkills skills={skills} />
-      </Page>
-    </Document>
+    <div className="p-5">
+      <PDFViewer style={{ width: '100%', height: '100vh' }}>
+        <Document title="FirstCV" keywords="CV">
+          <Page size="A4" style={styles.page}>
+            <UserDetails userDetails={userDetails} />
+            <UserEducation education={education} />
+            <UserWorkExperience workExperience={experience} />
+            <UserProjects projects={projects} />
+            <UserSkills skills={skills} />
+          </Page>
+        </Document>
+      </PDFViewer>
+    </div>
   );
 };
 

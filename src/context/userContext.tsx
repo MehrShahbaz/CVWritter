@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
+import { ContextProviderProps } from 'types/authTypes';
 
 export type UserCreateType = {
   email: string;
@@ -14,11 +15,7 @@ interface UserContextType {
 
 const UserContext = createContext<UserContextType | null>(null);
 
-interface UserProviderProps {
-  children: ReactNode;
-}
-
-export const UserProvider = ({ children }: UserProviderProps): JSX.Element => {
+export const UserProvider = ({ children }: ContextProviderProps): JSX.Element => {
   const [user, setUserState] = useState<UserCreateType | null>(null);
   const setUser = (data: UserCreateType | null): void => {
     setUserState(data);
