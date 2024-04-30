@@ -7,18 +7,17 @@ type DetailsProps = {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'flex-start', // Align items to the start of the container
-    marginBottom: 4, // Add margin at the bottom of each detail for separation
+    alignItems: 'flex-start',
+    marginBottom: 4,
   },
   bullet: {
     fontSize: 10,
-    marginTop: 2, // Adjust the spacing between the bullet point and the text
+    marginTop: 2,
   },
   text: {
     marginLeft: 5,
     fontSize: 10,
-    flex: 1, // Allow the text to take up remaining space in the container
-    // You may need to adjust the font size or use ellipsis (...) for long text
+    flex: 1,
   },
 });
 const Details = ({ details }: DetailsProps): JSX.Element => (

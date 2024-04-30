@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
 });
 const MyDocument = (): JSX.Element => {
   const { selectedJob } = useJobs();
-  const { personalDetails, experience } = dummyData;
+  const { personalDetails } = dummyData;
 
   if (!selectedJob) {
     return <div />;
@@ -47,7 +47,7 @@ const MyDocument = (): JSX.Element => {
           <Page size="A4" style={styles.page}>
             <UserDetails personalDetails={personalDetails} jobDetails={userData.jobDetails} />
             <UserEducation education={userData.education} />
-            <UserWorkExperience workExperience={experience} />
+            <UserWorkExperience workExperience={userData.experience} />
             <UserProjects projects={userData.projects} />
             <UserSkills skills={userData.skills} />
           </Page>

@@ -17,7 +17,7 @@ const ProjectFieldArray = (): JSX.Element => {
     <FieldArray
       name="projects"
       render={(arrayHelpers) => {
-        const { remove, insert } = arrayHelpers;
+        const { remove, push } = arrayHelpers;
         const { projects } = values;
         const isDisabled = projects?.length === 1;
 
@@ -27,7 +27,7 @@ const ProjectFieldArray = (): JSX.Element => {
               <div className="text-lg font-semibold mr-2">Projects</div>
               <button
                 type="button"
-                onClick={() => insert(0, emptyProjectsData)}
+                onClick={() => push(emptyProjectsData)}
                 className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:outline-none"
               >
                 +

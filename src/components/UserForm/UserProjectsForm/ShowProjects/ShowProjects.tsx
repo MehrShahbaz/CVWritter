@@ -10,16 +10,30 @@ const ShowProjects = ({ userData }: DetailsComponentProps): JSX.Element => {
   return (
     <div>
       {projects.map((project, index) => (
-        <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-md mb-4">
-          <div className="mb-2 font-bold">{project.name}</div>
-          {project.title && <div className="mb-2">{project.title}</div>}
-          <ol className="list-decimal pl-6">
-            {project.details.map((detail, idx) => (
-              <li key={idx} className="mt-2">
-                {detail}
-              </li>
-            ))}
-          </ol>
+        <div key={index} className="p-4 bg-gray-200 rounded-lg shadow-md mb-4 text-sm">
+          <div>
+            <div className="mb-1 text-lg">
+              <div className="font-bold">Project {index + 1}</div>
+            </div>
+            <div className="mb-1">
+              <div className="font-bold">Project Name</div>
+              <div>{project.name}</div>
+            </div>
+            <div className="mb-1">
+              <div className="font-bold">User Title</div>
+              <div>{project.title}</div>
+            </div>
+            <div className="mb-1">
+              <div className="font-bold">Details</div>
+              <ol className="list-decimal pl-6">
+                {project.details.map((detail, idx) => (
+                  <li key={idx} className="mt-2">
+                    {detail}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
       ))}
     </div>
