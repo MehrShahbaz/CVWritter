@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 
 import { userId } from 'constants/jobConstants';
-import { getUser } from 'services/authenticationSerive';
+import { getUser } from 'services/userService';
 
 import UserCard from './UserCard/UserCard';
 

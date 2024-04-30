@@ -1,5 +1,5 @@
 import { JobCreateType, JobUpdateType } from 'types/jobTypes';
-import { UserCreateType } from 'types/userTypes';
+import { UserCreateType, UserUpdateType } from 'types/userTypes';
 
 import baseService from './baseService';
 
@@ -31,6 +31,7 @@ export const skillActions = {
 };
 
 export const userActions = {
-  createUser: (data: UserCreateType) => baseService.post(urls.user.base, { user: data }),
   getUser: (id: string) => baseService.get(`${urls.user.base}/${id}`),
+  createUser: (data: UserCreateType) => baseService.post(urls.user.base, { user: data }),
+  updateUser: (userId: string, data: UserUpdateType) => baseService.put(`${urls.user.base}/${userId}`, { user: data }),
 };

@@ -51,6 +51,11 @@ export type UserCreateType = {
   details: string;
 };
 
+export type UserUpdateType = {
+  name?: string | null;
+  details?: string;
+};
+
 export type UserComponentType = {
   handleUpdate: (data: UserDatatype) => void;
   userData: UserDatatype;

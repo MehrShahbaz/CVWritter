@@ -11,12 +11,23 @@ import {
   UserProjectsForm,
   UserSkillsForm,
 } from 'components/shared/UserDataForms';
+import { userId } from 'constants/jobConstants';
+import { updateUser } from 'services/userService';
 
 const UserCard = (): JSX.Element => {
-  const { user } = useUser();
-  const handleUpdate = useCallback((data: UserDatatype) => {
-    console.log(data);
-  }, []);
+  const { user, setUser } = useUser();
+  const handleUpdate = useCallback(
+    (data: UserDatatype) => {
+      if (userId) {
+        updateUser(userId, { details: JSON.stringify(data) }).then((res) => {
+          if (res) {
+            setUser(res);
+          }
+        });
+      }
+    },
+    [setUser]
+  );
 
   if (!user) {
     return <div className="text-center text-gray-500">No Data available at the moment</div>;
@@ -27,7 +38,7 @@ const UserCard = (): JSX.Element => {
 
   return (
     <Accordion>
-      <UserPersonalDetailsForm />
+      <UserPersonalDetailsForm handleUpdate={handleUpdate} userData={userData} />
       <UserDetailsForm handleUpdate={handleUpdate} userData={userData} />
       <UserEducationForm handleUpdate={handleUpdate} userData={userData} />
       <UserExperienceForm handleUpdate={handleUpdate} userData={userData} />

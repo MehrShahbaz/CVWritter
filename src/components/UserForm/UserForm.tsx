@@ -38,7 +38,7 @@ const UserForm = (): JSX.Element => {
 
   return (
     <Accordion>
-      <UserPersonalDetailsForm />
+      <UserPersonalDetailsForm handleUpdate={handleUpdate} userData={userData} />
       <UserDetailsForm handleUpdate={handleUpdate} userData={userData} />
       <UserEducationForm handleUpdate={handleUpdate} userData={userData} />
       <UserExperienceForm handleUpdate={handleUpdate} userData={userData} />

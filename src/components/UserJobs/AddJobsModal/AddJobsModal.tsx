@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useJobs } from 'context/jobContext';
 import { useSkill } from 'context/skillContext';
+import { useUser } from 'context/userContext';
 import { Field, Form, Formik } from 'formik';
 import { jobCreateFrom } from 'schema/jobSchema';
 import { JobCreateType, JobFormType } from 'types/jobTypes';
@@ -9,9 +10,10 @@ import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
 import SelectSkills from 'components/shared/SelectSkills/SelectSkills';
-import { emptyUserDetailsData, FORM_INTIAL_VALUES } from 'constants/jobConstants';
+import { emptyUserDetailsData, FORM_INTIAL_VALUES, userId } from 'constants/jobConstants';
 import { createJob } from 'services/jobsService';
 import { getAllSkills } from 'services/skillService';
+import { getUser } from 'services/userService';
 
 type AddJobsModalProps = {
   isOpen: boolean;
@@ -21,23 +23,29 @@ type AddJobsModalProps = {
 const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
   const { setSkills } = useSkill();
   const { appendJob } = useJobs();
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     onGetAllSkills();
+    onGetUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const onGetUser = useCallback(() => {
+    getUser(userId).then((res) => setUser(res));
+  }, [setUser]);
   const onGetAllSkills = useCallback(() => {
     getAllSkills().then((res) => setSkills(res));
   }, [setSkills]);
   const handleSubmit = useCallback(
     (values: JobFormType) => {
+      const details = user?.details || JSON.stringify(emptyUserDetailsData);
       const data: JobCreateType = {
         name: values.name,
         description: values.description,
         url: values.url,
         skill_ids: values.skills.map(({ id }) => id),
-        user_details: JSON.stringify(emptyUserDetailsData),
+        user_details: details,
       };
 
       createJob(data).then((res) => {
@@ -47,7 +55,7 @@ const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
         }
       });
     },
-    [appendJob, setOpen]
+    [appendJob, setOpen, user]
   );
 
   return (

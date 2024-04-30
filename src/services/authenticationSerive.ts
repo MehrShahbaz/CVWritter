@@ -3,40 +3,13 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { firebaseAuth } from 'firebaseConfig/firebaseAuth';
 import { LoginType } from 'types/loginTypes';
-import { UserCreateType, UserType } from 'types/userTypes';
 
-import { createUserData, errorNotification } from 'helpers/appHelper';
+import { createUserData } from 'helpers/appHelper';
 import { getFriendlyMessageFromFirebaseErrorCode } from 'helpers/firebaseHelper';
 
-import { userActions } from './actions';
+import { createUser } from './userService';
 
 const provider = new GoogleAuthProvider();
-
-export const createUser = async (args: UserCreateType): Promise<UserCreateType | null> => {
-  try {
-    const response = await userActions.createUser(args);
-    const responseData: UserCreateType = response.data;
-
-    return responseData;
-  } catch (e: any) {
-    errorNotification(e, 5000);
-
-    return null;
-  }
-};
-
-export const getUser = async (uid: string): Promise<UserType | null> => {
-  try {
-    const response = await userActions.getUser(uid);
-    const responseData: UserType = response.data;
-
-    return responseData;
-  } catch (e: any) {
-    errorNotification(e, 5000);
-
-    return null;
-  }
-};
 
 export const loginWithEmail = async (args: { type: LoginType; email: string; password: string }): Promise<string> => {
   try {
