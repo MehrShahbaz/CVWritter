@@ -43,7 +43,7 @@ const MyDocument = (): JSX.Element => {
   return (
     <div className="p-5">
       <PDFViewer style={{ width: '100%', height: '100vh' }}>
-        <Document title="FirstCV" keywords="CV">
+        <Document title={`${personalDetails.firstName}_CV`} keywords="CV">
           <Page size="A4" style={styles.page}>
             <UserDetails personalDetails={personalDetails} jobDetails={userData.jobDetails} />
             <UserEducation education={userData.education} />

@@ -15,7 +15,7 @@ const Navbar = (): JSX.Element => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <span className="text-white font-bold">Your Logo</span>
+              <span className="text-white font-bold">Custom CV</span>
             </div>
           </div>
           <div className="hidden md:block">
@@ -27,23 +27,11 @@ const Navbar = (): JSX.Element => {
                 Home
               </Link>
               <Link
-                to="/"
+                to={'/'}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                About
+                User Details
               </Link>
-              <Link
-                to="/"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Services
-              </Link>
-              <button
-                onClick={() => window.location.reload()}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Reload
-              </button>
               <LogoutButton />
             </div>
           </div>
@@ -83,16 +71,10 @@ const Navbar = (): JSX.Element => {
             Home
           </Link>
           <Link
-            to="/"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            to={'/'}
+            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            About
-          </Link>
-          <Link
-            to="/"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Services
+            User Details
           </Link>
           <LogoutButton />
         </div>
