@@ -1,12 +1,14 @@
 import { useCallback, useEffect } from 'react';
 import { useUser } from 'context/userContext';
+import { useAuth } from 'layout/Layout';
+import { LoadingStateTypes } from 'types/loadingTypes';
 
-import { userId } from 'constants/jobConstants';
 import { getUser } from 'services/userService';
 
 import UserCard from './UserCard/UserCard';
 
 const UserPage = (): JSX.Element => {
+  const authResult = useAuth();
   const { setUser } = useUser();
 
   useEffect(() => {
@@ -15,8 +17,10 @@ const UserPage = (): JSX.Element => {
   }, []);
 
   const onGetUser = useCallback(() => {
-    getUser(userId).then((res) => setUser(res));
-  }, [setUser]);
+    if (authResult.type === LoadingStateTypes.LOADED) {
+      getUser(authResult.user.uid).then((res) => setUser(res));
+    }
+  }, [setUser, authResult]);
 
   return (
     <div className="container mx-auto px-4 py-8">

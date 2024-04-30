@@ -3,8 +3,8 @@ import { useUser } from 'context/userContext';
 import { LoginDataType } from 'types/loginTypes';
 
 import LogInForm from 'components/shared/LogInForm/LogInForm';
-// import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
 import SignUpModal from 'components/SignUpModal/SignUpModal';
+import { urls } from 'routes/urls';
 import { loginWithEmail } from 'services/authenticationSerive';
 import { getUser } from 'services/userService';
 
@@ -22,8 +22,8 @@ const LoginPage = (): JSX.Element => {
       }).then((res): void => {
         getUser(res).then((response) => {
           if (response) {
-            console.log(response);
             setUser(response);
+            window.location.href = urls.home;
           }
         });
       });

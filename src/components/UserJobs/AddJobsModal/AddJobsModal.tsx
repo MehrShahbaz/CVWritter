@@ -10,10 +10,9 @@ import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
 import SelectSkills from 'components/shared/SelectSkills/SelectSkills';
-import { emptyUserDetailsData, FORM_INTIAL_VALUES, userId } from 'constants/jobConstants';
+import { emptyUserDetailsData, FORM_INTIAL_VALUES } from 'constants/jobConstants';
 import { createJob } from 'services/jobsService';
 import { getAllSkills } from 'services/skillService';
-import { getUser } from 'services/userService';
 
 type AddJobsModalProps = {
   isOpen: boolean;
@@ -23,17 +22,13 @@ type AddJobsModalProps = {
 const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
   const { setSkills } = useSkill();
   const { appendJob } = useJobs();
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   useEffect(() => {
     onGetAllSkills();
-    onGetUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onGetUser = useCallback(() => {
-    getUser(userId).then((res) => setUser(res));
-  }, [setUser]);
   const onGetAllSkills = useCallback(() => {
     getAllSkills().then((res) => setSkills(res));
   }, [setSkills]);

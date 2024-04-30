@@ -20,7 +20,6 @@ const RouterConfig = (): JSX.Element => (
         <Route path={urls.user} element={<UserPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
-
       <Route path="/login" element={<LoginPage />} />
     </Routes>
   </Router>

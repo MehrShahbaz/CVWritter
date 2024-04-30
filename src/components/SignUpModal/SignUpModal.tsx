@@ -1,9 +1,12 @@
 import { useCallback } from 'react';
+import { useUser } from 'context/userContext';
 import { LoginDataType } from 'types/loginTypes';
 
 import LogInForm from 'components/shared/LogInForm/LogInForm';
 // import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
 import Modal from 'components/shared/Modal/Modal';
+import { urls } from 'routes/urls';
+import { getUser } from 'services/userService';
 
 import { loginWithEmail } from '../../services/authenticationSerive';
 
@@ -13,6 +16,7 @@ interface SignUpModalProps {
 }
 
 const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
+  const { setUser } = useUser();
   const signUpWithEmail = useCallback(
     async (data: LoginDataType) => {
       const { email, password } = data;
@@ -21,11 +25,17 @@ const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
         type: 'sign-up',
         email,
         password,
-      }).then(() => {
+      }).then((res) => {
+        getUser(res).then((response) => {
+          if (response) {
+            setUser(response);
+            window.location.href = urls.home;
+          }
+        });
         setOpen(false);
       });
     },
-    [setOpen]
+    [setOpen, setUser]
   );
 
   return (

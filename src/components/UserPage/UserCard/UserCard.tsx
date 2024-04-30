@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 import { Accordion } from 'react-bootstrap';
 import { useUser } from 'context/userContext';
+import { useAuth } from 'layout/Layout';
+import { LoadingStateTypes } from 'types/loadingTypes';
 import { UserDatatype } from 'types/userTypes';
 
 import {
@@ -11,22 +13,22 @@ import {
   UserProjectsForm,
   UserSkillsForm,
 } from 'components/shared/UserDataForms';
-import { userId } from 'constants/jobConstants';
 import { updateUser } from 'services/userService';
 
 const UserCard = (): JSX.Element => {
   const { user, setUser } = useUser();
+  const authResult = useAuth();
   const handleUpdate = useCallback(
     (data: UserDatatype) => {
-      if (userId) {
-        updateUser(userId, { details: JSON.stringify(data) }).then((res) => {
+      if (authResult.type === LoadingStateTypes.LOADED) {
+        updateUser(authResult.user.uid, { details: JSON.stringify(data) }).then((res) => {
           if (res) {
             setUser(res);
           }
         });
       }
     },
-    [setUser]
+    [authResult, setUser]
   );
 
   if (!user) {

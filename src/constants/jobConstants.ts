@@ -63,4 +63,4 @@ export const emptyExperienceData: WorkExperienceType = {
   details: [''],
 };
 
-export const userId = 'UW35UY6HZfX7Uk5GpBkre6OzLJG2';
+// export const userId = 'UW35UY6HZfX7Uk5GpBkre6OzLJG2';
