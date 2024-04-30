@@ -1,4 +1,5 @@
 export const urls = {
   home: '/',
-  jobs: 'jobs',
+  jobs: '/jobs',
+  user: '/user',
 };

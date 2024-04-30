@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { urls } from 'routes/urls';
+
 import LogoutButton from '../LogoutButton/LogoutButton';
 
 const Navbar = (): JSX.Element => {
@@ -27,7 +29,7 @@ const Navbar = (): JSX.Element => {
                 Home
               </Link>
               <Link
-                to={'/'}
+                to={urls.user}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
                 User Details

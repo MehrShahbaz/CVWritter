@@ -1,33 +1,34 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
+import { useUser } from 'context/userContext';
+import { LoginDataType } from 'types/loginTypes';
 
-import Input from 'components/shared/Input/Input';
-import LoadingButton from 'components/shared/LoadingButton/LoadingButton';
-import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
+import LogInForm from 'components/shared/LogInForm/LogInForm';
+// import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
 import SignUpModal from 'components/SignUpModal/SignUpModal';
-
-import { loginWithEmail } from '../../services/authenticationSerive';
+import { getUser, loginWithEmail } from 'services/authenticationSerive';
 
 const LoginPage = (): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isDisableSubmit, setDisableSubmit] = useState(true);
+  const { setUser } = useUser();
   const [isShowRegistration, setshowRegistration] = useState(false);
+  const signInWithEmail = useCallback(
+    async (data: LoginDataType) => {
+      const { email, password } = data;
 
-  useEffect(() => {
-    if (email && password.length >= 6) {
-      setDisableSubmit(false);
-    } else {
-      setDisableSubmit(true);
-    }
-  }, [email, password]);
-
-  const signInWithEmail = useCallback(async () => {
-    await loginWithEmail({
-      type: 'login',
-      email,
-      password,
-    });
-  }, [email, password]);
+      await loginWithEmail({
+        type: 'login',
+        email,
+        password,
+      }).then((res): void => {
+        getUser(res).then((response) => {
+          if (response) {
+            console.log(response);
+            setUser(response);
+          }
+        });
+      });
+    },
+    [setUser]
+  );
 
   return (
     <div className="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8">
@@ -37,25 +38,9 @@ const LoginPage = (): JSX.Element => {
         </div>
 
         <div className="max-w-xl w-full rounded overflow-hidden shadow-lg py-2 px-4">
-          <div className="flex gap-4 mb-5 flex-col">
-            <Input
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              name="email"
-              type="text"
-            />
-            <Input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              name="password"
-              type="password"
-            />
-            <LoadingButton onClick={signInWithEmail} disabled={isDisableSubmit}>
-              Sign In
-            </LoadingButton>
-            <div className="relative">
+          <div className="flex gap-4 mb-5 mt-5 flex-col">
+            <LogInForm handleSubmit={signInWithEmail} />
+            {/* <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300" />
               </div>
@@ -65,7 +50,7 @@ const LoginPage = (): JSX.Element => {
             </div>
             <div className="mt-2 grid grid-cols-1 gap-3">
               <LoginWithGoogleButton />
-            </div>
+            </div> */}
             <div className="mt-6">
               <div className="flex justify-center">
                 <div className="relative flex justify-center text-sm">
@@ -74,7 +59,7 @@ const LoginPage = (): JSX.Element => {
                 <div className="relative flex justify-center text-sm">
                   <button
                     onClick={() => setshowRegistration(true)}
-                    className="ml-2 cursor-pointer font-medium text-violet-600 hover:text-violet-400"
+                    className="ml-2 cursor-pointer font-medium text-green-500 hover:text-green-700"
                   >
                     Sign Up
                   </button>

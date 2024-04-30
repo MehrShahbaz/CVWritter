@@ -4,14 +4,15 @@ import { useParams } from 'react-router-dom';
 import { useJobs } from 'context/jobContext';
 import { UserDatatype } from 'types/userTypes';
 
+import {
+  UserDetailsForm,
+  UserEducationForm,
+  UserExperienceForm,
+  UserPersonalDetailsForm,
+  UserProjectsForm,
+  UserSkillsForm,
+} from 'components/shared/UserDataForms';
 import { updateJob } from 'services/jobsService';
-
-import UserDetailsForm from './UserDetailsForm/UserDetailsForm';
-import UserEducationForm from './UserEducationForm/UserEducationForm';
-import UserExperienceForm from './UserExperienceForm/UserExperienceForm';
-import UserPersonalDetailsForm from './UserPersonalDetailsForm/UserPersonalDetailsForm';
-import UserProjectsForm from './UserProjectsForm/UserProjectsForm';
-import UserSkillsForm from './UserSkillsForm/UserSkillsForm';
 
 const UserForm = (): JSX.Element => {
   const { productId } = useParams<{ productId: string }>();

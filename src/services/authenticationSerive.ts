@@ -1,73 +1,58 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
 import { firebaseAuth } from 'firebaseConfig/firebaseAuth';
-import { firebaseDb } from 'firebaseConfig/firebaseDb';
-import { GoogleUserCreateType } from 'types/userTypes';
+import { LoginType } from 'types/loginTypes';
+import { UserCreateType, UserType } from 'types/userTypes';
 
-import { createUserData, isEmail } from 'helpers/appHelper';
+import { createUserData, errorNotification } from 'helpers/appHelper';
 import { getFriendlyMessageFromFirebaseErrorCode } from 'helpers/firebaseHelper';
+
+import { userActions } from './actions';
 
 const provider = new GoogleAuthProvider();
 
-export const createUser = async (args: GoogleUserCreateType): Promise<void> => {
+export const createUser = async (args: UserCreateType): Promise<UserCreateType | null> => {
   try {
-    const docRef = await addDoc(collection(firebaseDb, 'users'), args);
+    const response = await userActions.createUser(args);
+    const responseData: UserCreateType = response.data;
 
-    console.log('Document written with ID: ', docRef.id);
+    return responseData;
   } catch (e: any) {
-    console.log(getFriendlyMessageFromFirebaseErrorCode(e));
+    errorNotification(e, 5000);
+
+    return null;
   }
 };
 
-export const loginWithGoogle = async (): Promise<GoogleUserCreateType> => {
+export const getUser = async (uid: string): Promise<UserType | null> => {
   try {
-    const result = await signInWithPopup(firebaseAuth, provider);
-    const credential = GoogleAuthProvider.credentialFromResult(result);
-    const token = credential?.accessToken;
-    const user = result.user;
-    const data = createUserData(user);
+    const response = await userActions.getUser(uid);
+    const responseData: UserType = response.data;
 
-    console.log(token);
-    await createUser(data);
+    return responseData;
+  } catch (e: any) {
+    errorNotification(e, 5000);
 
-    return data;
-  } catch (error) {
-    console.log(error);
-    throw error;
+    return null;
   }
 };
 
-export const loginWithEmail = async (args: {
-  type: 'login' | 'sign-up';
-  email: string;
-  password: string;
-}): Promise<void> => {
+export const loginWithEmail = async (args: { type: LoginType; email: string; password: string }): Promise<string> => {
   try {
-    if (!isEmail(args.email)) {
-      console.log('Email Errro');
-
-      return;
-    }
-
-    if (args.password.length < 6) {
-      console.log('Password Error');
-
-      return;
-    }
-
     if (args.type === 'sign-up') {
       const { user } = await createUserWithEmailAndPassword(firebaseAuth, args.email, args.password);
 
-      await createUser(createUserData(user));
-
-      console.log(user);
+      createUser(createUserData(user));
     }
 
-    await signInWithEmailAndPassword(firebaseAuth, args.email, args.password);
+    const response = await signInWithEmailAndPassword(firebaseAuth, args.email, args.password);
+
+    return response.user.uid;
   } catch (e: any) {
     console.log(getFriendlyMessageFromFirebaseErrorCode(e));
+
+    return '';
   }
 };
 
@@ -76,5 +61,21 @@ export const logout = async (): Promise<void> => {
     await signOut(firebaseAuth);
   } catch (e: any) {
     console.log(getFriendlyMessageFromFirebaseErrorCode(e));
+  }
+};
+
+export const loginWithGoogle = async (): Promise<void> => {
+  try {
+    const result = await signInWithPopup(firebaseAuth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    const token = credential?.accessToken;
+    const user = result.user;
+
+    console.log(token);
+    console.log({ user });
+    console.log({ result });
+  } catch (error) {
+    console.log(error);
+    throw error;
   }
 };

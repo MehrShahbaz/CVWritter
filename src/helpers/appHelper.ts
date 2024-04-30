@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Store } from 'react-notifications-component';
 import { User } from 'firebase/auth';
-import { GoogleUserCreateType } from 'types/userTypes';
+import { UserCreateType, UserDatatype } from 'types/userTypes';
+
+import { emptyUserDetailsData } from 'constants/jobConstants';
 
 export const isEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,12 +37,18 @@ export const chunkArray = (array: string[], n: number): string[][] => {
 export const convertDate = (startDate?: string, endDate?: string): string =>
   `${startDate?.length ? startDate : 'Start'} - ${endDate?.length ? endDate : 'End'}`;
 
-export const createUserData = (user: User): GoogleUserCreateType => ({
-  email: user.email,
-  emailVerified: user.emailVerified,
-  displayName: user.displayName,
-  photoURL: user.photoURL,
-});
+export const createUserData = (user: User): UserCreateType => {
+  const { personalDetails } = emptyUserDetailsData;
+  const tempData = { ...personalDetails, email: user.email || '' };
+  const data: UserDatatype = { ...emptyUserDetailsData, personalDetails: tempData };
+
+  return {
+    uid: user.uid,
+    email: user.email,
+    name: '',
+    details: JSON.stringify(data),
+  };
+};
 
 type ShowNotificationProps = {
   title: string;
