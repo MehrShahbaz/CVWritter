@@ -1,40 +1,49 @@
 import { Field, FieldArray, useFormikContext } from 'formik';
-import { JobType } from 'types/jobTypes';
+import { ProjectsType } from 'types/userTypes';
 
 import InputField from 'components/shared/InputField/InputField';
 
-const SkillsFieldArray = (): JSX.Element => {
-  const { values } = useFormikContext<JobType>();
+type ProjectFieldArrayType = {
+  projects: ProjectsType[];
+};
+
+type ProjectDetailsFieldArrayProps = {
+  projectIndex: number;
+};
+
+const ProjectDetailsFieldArray = ({ projectIndex }: ProjectDetailsFieldArrayProps): JSX.Element => {
+  const { values } = useFormikContext<ProjectFieldArrayType>();
 
   return (
     <FieldArray
-      name="skills"
+      name={`projects.${projectIndex}.details`}
       render={(arrayHelpers) => {
-        const { remove, insert } = arrayHelpers;
-        const { skills } = values;
-        const isDisabled = skills?.length === 1;
+        const { remove, push } = arrayHelpers;
+        const { projects } = values;
+        const { details } = projects[projectIndex];
+        const isDisabled = details?.length === 1;
 
         return (
           <div>
             <div className="flex items-center">
-              <div className="text-lg font-semibold mr-2">Skills</div>
+              <div className="text-lg font-semibold mr-2">Details</div>
               <button
                 type="button"
-                onClick={() => insert(0, '')}
+                onClick={() => push('')}
                 className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:outline-none"
               >
                 +
               </button>
             </div>
-            {skills?.map((_skill, index) => (
+            {details?.map((_skill, index) => (
               <div>
                 <div key={index} className="flex justify-between items-center">
                   <div className="flex-grow mr-2">
                     <Field
                       type="text"
-                      name={`skills.${index}`}
-                      placeholder="Skill"
-                      heading={`Skill ${index + 1}`}
+                      name={`projects.${projectIndex}.details.${index}`}
+                      placeholder="Detail"
+                      heading={`Detail: ${index + 1}`}
                       component={InputField}
                     />
                   </div>
@@ -60,4 +69,4 @@ const SkillsFieldArray = (): JSX.Element => {
   );
 };
 
-export default SkillsFieldArray;
+export default ProjectDetailsFieldArray;

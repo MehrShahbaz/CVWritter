@@ -1,5 +1,5 @@
 import { JobFormType } from 'types/jobTypes';
-import { UserDatatype } from 'types/userTypes';
+import { ProjectsType, UserDatatype } from 'types/userTypes';
 
 export const FORM_INTIAL_VALUES: JobFormType = {
   name: '',
@@ -46,4 +46,10 @@ export const emptyUserDetailsData: UserDatatype = {
     },
   ],
   skills: [''],
+};
+
+export const emptyProjectsData: ProjectsType = {
+  name: '',
+  title: '',
+  details: [''],
 };

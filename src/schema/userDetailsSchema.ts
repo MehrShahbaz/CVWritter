@@ -16,3 +16,13 @@ export const jobDetailsFormSchema = object({
 export const jobSkillsFormSchema = object({
   skills: array().of(string().min(2).required('Skill is Required')).min(1),
 });
+
+export const jobProjectsSchema = object({
+  projects: array().of(
+    object({
+      name: string().min(3).required('Title is Required'),
+      title: string().min(3).required('Title is Required'),
+      details: array().of(string().min(2).required('Detail is Required')).min(1),
+    })
+  ),
+});
