@@ -10,9 +10,9 @@ const SkillsFieldArray = (): JSX.Element => {
     <FieldArray
       name="skills"
       render={(arrayHelpers) => {
-        const { remove, push } = arrayHelpers;
+        const { remove, insert } = arrayHelpers;
         const { skills } = values;
-        const isDisabled = skills.length === 1;
+        const isDisabled = skills?.length === 1;
 
         return (
           <div>
@@ -20,13 +20,13 @@ const SkillsFieldArray = (): JSX.Element => {
               <div className="text-lg font-semibold mr-2">Skills</div>
               <button
                 type="button"
-                onClick={() => push('')}
+                onClick={() => insert(0, '')}
                 className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:outline-none"
               >
                 +
               </button>
             </div>
-            {skills.map((_skill, index) => (
+            {skills?.map((_skill, index) => (
               <div>
                 <div key={index} className="flex justify-between items-center">
                   <div className="flex-grow mr-2">

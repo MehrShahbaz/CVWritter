@@ -4,15 +4,15 @@ import { UserComponentType } from 'types/userTypes';
 
 import { EditIcon } from 'assets';
 
-import EditSkills from './EditSkills/EditSkills';
-import ShowSkills from './ShowSkills/ShowSkills';
+import EditExperience from './EditExperience/EditExperience';
+import ShowExperience from './ShowExperience/ShowExperience';
 
-const UserSkillsForm = ({ userData, handleUpdate }: UserComponentType): JSX.Element => {
+const UserExperienceForm = ({ userData, handleUpdate }: UserComponentType): JSX.Element => {
   const [isEdit, setEdit] = useState(false);
 
   return (
-    <Accordion.Item eventKey={`5`}>
-      <Accordion.Header>Skills</Accordion.Header>
+    <Accordion.Item eventKey={`3`}>
+      <Accordion.Header>Experience</Accordion.Header>
       <Accordion.Body>
         <div className="flex justify-end mb-3">
           <button onClick={() => setEdit(!isEdit)}>
@@ -21,9 +21,9 @@ const UserSkillsForm = ({ userData, handleUpdate }: UserComponentType): JSX.Elem
         </div>
         <div className="p-4 bg-gray-100 rounded-lg shadow-md">
           {isEdit ? (
-            <EditSkills userData={userData} handleUpdate={handleUpdate} setShowFalse={() => setEdit(false)} />
+            <EditExperience userData={userData} handleUpdate={handleUpdate} setShowFalse={() => setEdit(false)} />
           ) : (
-            <ShowSkills userData={userData} />
+            <ShowExperience userData={userData} />
           )}
         </div>
       </Accordion.Body>
@@ -31,4 +31,4 @@ const UserSkillsForm = ({ userData, handleUpdate }: UserComponentType): JSX.Elem
   );
 };
 
-export default UserSkillsForm;
+export default UserExperienceForm;

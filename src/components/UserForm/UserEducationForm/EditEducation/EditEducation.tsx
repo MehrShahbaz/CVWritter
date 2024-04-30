@@ -75,6 +75,7 @@ const EditEducation = ({ userData, handleUpdate, setShowFalse }: DetailsEditProp
               </button>
               <button
                 type="submit"
+                disabled={!isDirty || !isValid}
                 className={`bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded inline-flex items-center ${
                   (!isDirty || !isValid) && 'opacity-50 cursor-not-allowed'
                 }`}

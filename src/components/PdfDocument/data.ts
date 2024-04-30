@@ -1,14 +1,16 @@
 import { UserDatatype } from 'types/userTypes';
 
 const dummyData: UserDatatype = {
-  userDetails: {
+  personalDetails: {
     firstName: 'John',
     lastName: 'Doe',
-    title: 'Software Engineer',
     address: '123 Main Street, City, Country',
     linkedinUrl: 'https://www.linkedin.com/in/johndoe',
     phoneNumber: '+1234567890',
     email: 'john.doe@example.com',
+  },
+  jobDetails: {
+    title: 'Software Engineer',
     aboutMe:
       'Experienced Ruby on Rails Developer with 1.5 years in the field, known for innovative problem-solving and a dedication to delivering top-tier web applications. Proficient in Ruby, Ruby on Rails, and associated technologies, with a strong focus on crafting intuitive and user-centric web solutions. Skilled in designing robust databases, implementing RESTful APIs, and ensuring code reliability through rigorous testing. Proven ability to collaborate effectively across teams, consistently meeting project objectives and deadlines while upholding code quality standards. Seeking opportunities to apply my expertise to progressive tech companies, driving exceptional web development initiatives.',
   },

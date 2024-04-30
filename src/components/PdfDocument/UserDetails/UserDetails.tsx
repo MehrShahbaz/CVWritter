@@ -1,5 +1,5 @@
 import { Link, StyleSheet, Text } from '@react-pdf/renderer';
-import { UserDetailsType } from 'types/userTypes';
+import { UserJobDetailsType, UserPersonalDetailsType } from 'types/userTypes';
 
 import Heading from '../Heading/Heading';
 
@@ -31,11 +31,13 @@ const styles = StyleSheet.create({
 });
 
 type UserDetailsProps = {
-  userDetails: UserDetailsType;
+  personalDetails: UserPersonalDetailsType;
+  jobDetails: UserJobDetailsType;
 };
 
-const UserDetails = ({ userDetails }: UserDetailsProps): JSX.Element => {
-  const { firstName, lastName, title, address, phoneNumber, linkedinUrl, email, aboutMe } = userDetails;
+const UserDetails = ({ personalDetails, jobDetails }: UserDetailsProps): JSX.Element => {
+  const { firstName, lastName, address, phoneNumber, linkedinUrl, email } = personalDetails;
+  const { title, aboutMe } = jobDetails;
 
   return (
     <>

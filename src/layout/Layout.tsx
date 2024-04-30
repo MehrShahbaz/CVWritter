@@ -5,7 +5,7 @@ import CustomNavbar from 'components/shared/Navbar/Navbar';
 const Layout = (): JSX.Element => (
   <div>
     <CustomNavbar />
-    <div>
+    <div className="bg-gray-100 h-screen">
       <Outlet />
     </div>
   </div>

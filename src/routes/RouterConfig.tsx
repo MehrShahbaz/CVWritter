@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from 'layout/Layout';
 
-import JobDetails from 'components/jobDetails/JobDetails';
+import JobDetails from 'components/JobDetails/JobDetails';
 import ErrorPage from 'components/shared/ErrorPage/ErrorPage';
 import UserJobs from 'components/UserJobs/UserJobs';
 

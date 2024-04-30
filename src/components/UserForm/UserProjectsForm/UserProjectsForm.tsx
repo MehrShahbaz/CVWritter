@@ -1,25 +1,31 @@
+import { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
+import { UserComponentType } from 'types/userTypes';
 
-import dummyData from '../../PdfDocument/data';
+import { EditIcon } from 'assets';
 
-const UserProjectsForm = (): JSX.Element => {
-  const { projects } = dummyData;
+import EditProjects from './EditProjects/EditProjects';
+import ShowProjects from './ShowProjects/ShowProjects';
+
+const UserProjectsForm = ({ userData, handleUpdate }: UserComponentType): JSX.Element => {
+  const [isEdit, setEdit] = useState(false);
 
   return (
-    <Accordion.Item eventKey={`3`}>
+    <Accordion.Item eventKey={`4`}>
       <Accordion.Header>Projects</Accordion.Header>
       <Accordion.Body>
-        {projects.map((project, index) => (
-          <div key={index} className="p-4 bg-gray-100 rounded-lg shadow-md mb-4">
-            <div className="mb-2 font-bold">{project.name}</div>
-            {project.title && <div className="mb-2">{project.title}</div>}
-            <ul>
-              {project.details.map((detail, idx) => (
-                <li key={idx}>{detail}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        <div className="flex justify-end mb-3">
+          <button onClick={() => setEdit(!isEdit)}>
+            <img src={EditIcon} alt="Edit Icon" height={20} width={20} />
+          </button>
+        </div>
+        <div className="p-4 bg-gray-100 rounded-lg shadow-md">
+          {isEdit ? (
+            <EditProjects userData={userData} handleUpdate={handleUpdate} setShowFalse={() => setEdit(false)} />
+          ) : (
+            <ShowProjects userData={userData} />
+          )}
+        </div>
       </Accordion.Body>
     </Accordion.Item>
   );

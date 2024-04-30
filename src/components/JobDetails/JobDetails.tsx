@@ -31,8 +31,8 @@ const JobDetails = (): JSX.Element => {
   const { name, description, url, skills } = selectedJob;
 
   return (
-    <div>
-      <div className="bg-gray-100 rounded p-4 shadow-md">
+    <div className="bg-gray-100 p-9">
+      <div className="bg-gray-200 rounded shadow-md mb-5 p-4">
         <div>
           <a href={url} target="_blank" rel="noreferrer" className="text-blue-500 font-bold hover:underline">
             {name}
@@ -43,14 +43,14 @@ const JobDetails = (): JSX.Element => {
           {skills.map(({ id, name: skillName }) => (
             <div
               key={id}
-              className="inline-block bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
+              className="inline-block bg-gray-300 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2"
             >
               {skillName}
             </div>
           ))}
         </div>
       </div>
-      <div className="flex-1 p-9">
+      <div className="flex-1 ">
         <UserForm />
       </div>
       <MyDocument />
