@@ -16,7 +16,7 @@ const Spinner = ({ size, theme }: SpinnerProps): JSX.Element => (
           ? 'text-gray-100 fill-gray-100 dark:text-gray-300 dark:fill-gray-50'
           : theme === 'dark'
           ? 'text-gray-600 fill-gray-600 dark:text-gray-500 dark:fill-gray-900'
-          : 'text-gray-200 fill-gray-200 dark:text-gray-500 fill-gray-400'
+          : 'text-gray-200 dark:text-gray-500 fill-gray-400'
       )}
       viewBox="0 0 100 101"
       fill="none"

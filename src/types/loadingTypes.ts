@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type LoadingTypes = 'not-loaded' | 'loading' | 'loaded' | 'failed';
 
 export enum LoadingStateTypes {

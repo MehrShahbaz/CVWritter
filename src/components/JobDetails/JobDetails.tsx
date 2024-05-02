@@ -1,6 +1,8 @@
 import { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useJobs } from 'context/jobContext';
+import { useAuth } from 'layout/Layout';
+import { LoadingStateTypes } from 'types/loadingTypes';
 
 import MyDocument from 'components/PdfDocument/Document';
 import UserForm from 'components/UserForm/UserForm';
@@ -9,15 +11,16 @@ import { getJob } from 'services/jobsService';
 const JobDetails = (): JSX.Element => {
   const { productId } = useParams<{ productId: string }>();
   const { setSelectedJob, selectedJob } = useJobs();
+  const authResult = useAuth();
   const onGetJob = useCallback(() => {
-    if (productId) {
-      getJob(productId).then((res) => {
+    if (productId && authResult.type === LoadingStateTypes.LOADED) {
+      getJob(authResult.user.uid, productId).then((res) => {
         if (res) {
           setSelectedJob(res);
         }
       });
     }
-  }, [productId, setSelectedJob]);
+  }, [productId, setSelectedJob, authResult]);
 
   useEffect(() => {
     onGetJob();

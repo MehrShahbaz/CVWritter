@@ -10,7 +10,7 @@ import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
 import SelectSkills from 'components/shared/SelectSkills/SelectSkills';
-import { emptyUserDetailsData, FORM_INTIAL_VALUES } from 'constants/jobConstants';
+import { FORM_INTIAL_VALUES } from 'constants/jobConstants';
 import { createJob } from 'services/jobsService';
 import { getAllSkills } from 'services/skillService';
 
@@ -34,21 +34,23 @@ const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
   }, [setSkills]);
   const handleSubmit = useCallback(
     (values: JobFormType) => {
-      const details = user?.details || JSON.stringify(emptyUserDetailsData);
-      const data: JobCreateType = {
-        name: values.name,
-        description: values.description,
-        url: values.url,
-        skill_ids: values.skills.map(({ id }) => id),
-        user_details: details,
-      };
+      if (user) {
+        const details = user.details;
+        const data: JobCreateType = {
+          name: values.name,
+          description: values.description,
+          url: values.url,
+          skill_ids: values.skills.map(({ id }) => id),
+          user_details: details,
+        };
 
-      createJob(data).then((res) => {
-        if (res) {
-          appendJob(res);
-          setOpen(false);
-        }
-      });
+        createJob(user.uid, data).then((res) => {
+          if (res) {
+            appendJob(res);
+            setOpen(false);
+          }
+        });
+      }
     },
     [appendJob, setOpen, user]
   );

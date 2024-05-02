@@ -10,7 +10,6 @@ import UserEducation from './UserEducation/UserEducation';
 import UserProjects from './UserProjects/UserProjects';
 import UserSkills from './UserSkills/UserSkills';
 import UserWorkExperience from './UserWorkExperience/UserWorkExperience';
-import dummyData from './data';
 
 Font.register({
   family: 'OpenSans',
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
 });
 const MyDocument = (): JSX.Element => {
   const { selectedJob } = useJobs();
-  const { personalDetails } = dummyData;
 
   if (!selectedJob) {
     return <div />;
@@ -43,9 +41,9 @@ const MyDocument = (): JSX.Element => {
   return (
     <div className="p-5">
       <PDFViewer style={{ width: '100%', height: '100vh' }}>
-        <Document title={`${personalDetails.firstName}_CV`} keywords="CV">
+        <Document title={`${userData.personalDetails.firstName}_CV`} keywords="CV">
           <Page size="A4" style={styles.page}>
-            <UserDetails personalDetails={personalDetails} jobDetails={userData.jobDetails} />
+            <UserDetails personalDetails={userData.personalDetails} jobDetails={userData.jobDetails} />
             <UserEducation education={userData.education} />
             <UserWorkExperience workExperience={userData.experience} />
             <UserProjects projects={userData.projects} />

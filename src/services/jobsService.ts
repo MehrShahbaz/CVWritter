@@ -5,9 +5,9 @@ import { errorNotification } from 'helpers/appHelper';
 
 import { jobActions } from './actions';
 
-export const createJob = async (data: JobCreateType): Promise<JobType | null> => {
+export const createJob = async (userId: string, data: JobCreateType): Promise<JobType | null> => {
   try {
-    const response = await jobActions.createjob(data);
+    const response = await jobActions.createjob(userId, data);
     const responseData: JobType = response.data;
 
     return responseData;
@@ -18,9 +18,9 @@ export const createJob = async (data: JobCreateType): Promise<JobType | null> =>
   }
 };
 
-export const getAllJobs = async (): Promise<JobType[]> => {
+export const getAllJobs = async (userId: string): Promise<JobType[]> => {
   try {
-    const response = await jobActions.getAllJobs();
+    const response = await jobActions.getAllJobs(userId);
 
     return response.data.jobs;
   } catch (err: any) {
@@ -30,9 +30,9 @@ export const getAllJobs = async (): Promise<JobType[]> => {
   }
 };
 
-export const getJob = async (id: string): Promise<JobType | null> => {
+export const getJob = async (userId: string, jobId: string): Promise<JobType | null> => {
   try {
-    const response = await jobActions.getJob(id);
+    const response = await jobActions.getJob(userId, jobId);
 
     return response.data;
   } catch (err: any) {
@@ -42,9 +42,9 @@ export const getJob = async (id: string): Promise<JobType | null> => {
   }
 };
 
-export const updateJob = async (id: string, data: JobUpdateType): Promise<JobType | null> => {
+export const updateJob = async (userId: string, jobId: string, data: JobUpdateType): Promise<JobType | null> => {
   try {
-    const response = await jobActions.updateJob(id, data);
+    const response = await jobActions.updateJob(userId, jobId, data);
 
     return response.data;
   } catch (err: any) {

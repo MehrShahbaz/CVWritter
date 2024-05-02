@@ -4,8 +4,8 @@ import { User } from 'firebase/auth';
 import { firebaseAuth } from 'firebaseConfig/firebaseAuth';
 import { LoadingStateTypes } from 'types/loadingTypes';
 
+import CustomSpinner from 'components/shared/CustomSpinner/CustomSpinner';
 import CustomNavbar from 'components/shared/Navbar/Navbar';
-import Spinner from 'components/shared/Spinner/Spinner';
 
 export type AuthContextType =
   | {
@@ -40,11 +40,11 @@ const Layout = (): JSX.Element => {
   const authResult = useAuth();
 
   if (authResult.type === LoadingStateTypes.LOADING) {
-    return <Spinner />;
+    return <CustomSpinner />;
   } else if (authResult.type === LoadingStateTypes.NOT_LOADED) {
     window.location.href = '/login';
 
-    return <Spinner />;
+    return <CustomSpinner />;
   } else {
     return (
       <div>

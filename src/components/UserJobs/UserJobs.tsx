@@ -15,21 +15,22 @@ const UserJobs = (): JSX.Element => {
   const { setJobs } = useJobs();
   const authResult = useAuth();
   const { setUser } = useUser();
+  const onGetAllJobs = useCallback(() => {
+    if (authResult.type === LoadingStateTypes.LOADED) {
+      getAllJobs(authResult.user.uid).then((res) => setJobs(res));
+    }
+  }, [setJobs, authResult]);
+  const onGetUser = useCallback(() => {
+    if (authResult.type === LoadingStateTypes.LOADED) {
+      getUser(authResult.user.uid).then((res) => setUser(res));
+    }
+  }, [setUser, authResult]);
 
   useEffect(() => {
     onGetAllJobs();
     onGetUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const onGetAllJobs = useCallback(() => {
-    getAllJobs().then((res) => setJobs(res));
-  }, [setJobs]);
-  const onGetUser = useCallback(() => {
-    if (authResult.type === LoadingStateTypes.LOADED) {
-      getUser(authResult.user.uid).then((res) => setUser(res));
-    }
-  }, [setUser, authResult]);
 
   return (
     <div className="container mx-auto px-4 py-8">

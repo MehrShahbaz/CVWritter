@@ -2,6 +2,8 @@ import { useCallback } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import { useParams } from 'react-router-dom';
 import { useJobs } from 'context/jobContext';
+import { useAuth } from 'layout/Layout';
+import { LoadingStateTypes } from 'types/loadingTypes';
 import { UserDatatype } from 'types/userTypes';
 
 import {
@@ -17,17 +19,18 @@ import { updateJob } from 'services/jobsService';
 const UserForm = (): JSX.Element => {
   const { productId } = useParams<{ productId: string }>();
   const { selectedJob, setSelectedJob } = useJobs();
+  const authResult = useAuth();
   const handleUpdate = useCallback(
     (data: UserDatatype) => {
-      if (productId) {
-        updateJob(productId, { user_details: JSON.stringify(data) }).then((res) => {
+      if (productId && authResult.type === LoadingStateTypes.LOADED) {
+        updateJob(authResult.user.uid, productId, { user_details: JSON.stringify(data) }).then((res) => {
           if (res) {
             setSelectedJob(res);
           }
         });
       }
     },
-    [productId, setSelectedJob]
+    [productId, setSelectedJob, authResult]
   );
 
   if (!selectedJob) {

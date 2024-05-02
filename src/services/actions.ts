@@ -5,8 +5,8 @@ import baseService from './baseService';
 
 const urls = {
   job: {
-    base: '/jobs',
-    method: (id: string | number) => `/jobs/${id}`,
+    base: (userId: string) => `/users/${userId}/jobs`,
+    method: (userId: string, id: string) => `/users/${userId}/jobs/${id}`,
   },
   skill: {
     base: '/skills',
@@ -19,10 +19,11 @@ const urls = {
 };
 
 export const jobActions = {
-  getAllJobs: () => baseService.get(urls.job.base),
-  createjob: (data: JobCreateType) => baseService.post(urls.job.base, { job: data }),
-  getJob: (id: string) => baseService.get(`${urls.job.base}/${id}`),
-  updateJob: (id: string, data: JobUpdateType) => baseService.patch(`${urls.job.base}/${id}`, { job: data }),
+  getAllJobs: (userId: string) => baseService.get(urls.job.base(userId)),
+  createjob: (userId: string, data: JobCreateType) => baseService.post(urls.job.base(userId), { job: data }),
+  getJob: (userId: string, id: string) => baseService.get(urls.job.method(userId, id)),
+  updateJob: (userId: string, id: string, data: JobUpdateType) =>
+    baseService.patch(urls.job.method(userId, id), { job: data }),
 };
 
 export const skillActions = {
