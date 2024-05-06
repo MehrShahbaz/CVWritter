@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 5,
     fontFamily: 'OpenSans',
   },
   title: {
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   line: {
     borderBottomColor: '#000',
     borderBottomWidth: 1,
-    marginBottom: 5,
+    marginBottom: 2,
   },
 });
 

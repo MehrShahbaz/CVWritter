@@ -29,7 +29,7 @@ type UserSkillsProps = {
 };
 
 const UserSkills = ({ skills }: UserSkillsProps): JSX.Element => {
-  const separatedSkills = useMemo(() => chunkArray(skills, 6), [skills]);
+  const separatedSkills = useMemo(() => chunkArray(skills, 4), [skills]);
 
   return (
     <>

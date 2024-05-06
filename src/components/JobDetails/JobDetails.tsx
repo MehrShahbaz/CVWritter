@@ -5,6 +5,7 @@ import { useAuth } from 'layout/Layout';
 import { LoadingStateTypes } from 'types/loadingTypes';
 
 import MyDocument from 'components/PdfDocument/Document';
+import CopyButton from 'components/shared/CopyClipBoardButton/CopyClipBoardButton';
 import UserForm from 'components/UserForm/UserForm';
 import { getJob } from 'services/jobsService';
 
@@ -36,10 +37,13 @@ const JobDetails = (): JSX.Element => {
   return (
     <div className="bg-gray-100 p-9">
       <div className="bg-gray-200 rounded shadow-md mb-5 p-4">
-        <div>
+        <div className="flex justify-between align-middle">
           <a href={url} target="_blank" rel="noreferrer" className="text-blue-500 font-bold hover:underline">
             {name}
           </a>
+          <div>
+            <CopyButton data={description} />
+          </div>
         </div>
         <div className="text-gray-700 mt-2">{description}</div>
         <div className="mt-2">

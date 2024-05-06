@@ -89,23 +89,23 @@ const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
                       component={InputTextField}
                     />
                     <Field name="skills" component={SelectSkills} />
-                    <div className="flex justify-end gap-4 mt-3">
-                      <button
-                        onClick={() => setOpen(false)}
-                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none ${
-                          !isDirty || !isValid ? 'opacity-50 cursor-not-allowed' : ''
-                        }`}
-                        disabled={!isDirty || !isValid}
-                      >
-                        Submit
-                      </button>
-                    </div>
+                  </div>
+                  <div className="flex justify-end gap-4 mt-3">
+                    <button
+                      onClick={() => setOpen(false)}
+                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none ${
+                        !isDirty || !isValid ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      disabled={!isDirty || !isValid}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </Form>
               )}

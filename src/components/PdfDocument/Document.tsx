@@ -26,17 +26,17 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: '#fff',
     paddingVertical: 20,
-    paddingHorizontal: 50,
+    paddingHorizontal: 30,
   },
 });
-const MyDocument = (): JSX.Element => {
+
+type MyDocumentProps = {
+  data?: UserDatatype;
+};
+
+const MyDocument = ({ data }: MyDocumentProps): JSX.Element => {
   const { selectedJob } = useJobs();
-
-  if (!selectedJob) {
-    return <div />;
-  }
-
-  const userData: UserDatatype = JSON.parse(selectedJob.user_details);
+  const userData: UserDatatype = data || JSON.parse(selectedJob?.user_details ? selectedJob?.user_details : '');
 
   return (
     <div className="p-5">

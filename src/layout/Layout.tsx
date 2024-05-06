@@ -49,7 +49,7 @@ const Layout = (): JSX.Element => {
     return (
       <div>
         <CustomNavbar />
-        <div className="bg-gray-100 h-screen">
+        <div className="bg-gray-100" style={{ minHeight: '100vh' }}>
           <Outlet />
         </div>
       </div>

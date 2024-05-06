@@ -2,14 +2,16 @@ import { useCallback, useEffect } from 'react';
 import { useUser } from 'context/userContext';
 import { useAuth } from 'layout/Layout';
 import { LoadingStateTypes } from 'types/loadingTypes';
+import { UserDatatype } from 'types/userTypes';
 
+import MyDocument from 'components/PdfDocument/Document';
 import { getUser } from 'services/userService';
 
 import UserCard from './UserCard/UserCard';
 
 const UserPage = (): JSX.Element => {
   const authResult = useAuth();
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
 
   useEffect(() => {
     onGetUser();
@@ -21,6 +23,12 @@ const UserPage = (): JSX.Element => {
       getUser(authResult.user.uid).then((res) => setUser(res));
     }
   }, [setUser, authResult]);
+
+  if (!user) {
+    return <div />;
+  }
+
+  const data: UserDatatype = JSON.parse(user.details);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -37,6 +45,7 @@ const UserPage = (): JSX.Element => {
       <div className="mt-8">
         <UserCard />
       </div>
+      <MyDocument data={data} />
     </div>
   );
 };

@@ -39,14 +39,18 @@ const UserCard = (): JSX.Element => {
   const userData: UserDatatype = JSON.parse(details);
 
   return (
-    <Accordion>
-      <UserPersonalDetailsForm handleUpdate={handleUpdate} userData={userData} />
-      <UserDetailsForm handleUpdate={handleUpdate} userData={userData} />
-      <UserEducationForm handleUpdate={handleUpdate} userData={userData} />
-      <UserExperienceForm handleUpdate={handleUpdate} userData={userData} />
-      <UserProjectsForm handleUpdate={handleUpdate} userData={userData} />
-      <UserSkillsForm handleUpdate={handleUpdate} userData={userData} />
-    </Accordion>
+    <div>
+      <div>
+        <Accordion>
+          <UserPersonalDetailsForm handleUpdate={handleUpdate} userData={userData} />
+          <UserDetailsForm handleUpdate={handleUpdate} userData={userData} />
+          <UserEducationForm handleUpdate={handleUpdate} userData={userData} />
+          <UserExperienceForm handleUpdate={handleUpdate} userData={userData} />
+          <UserProjectsForm handleUpdate={handleUpdate} userData={userData} />
+          <UserSkillsForm handleUpdate={handleUpdate} userData={userData} />
+        </Accordion>
+      </div>
+    </div>
   );
 };
 

@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: '10px',
   },
+  secondContainer: {
+    textAlign: 'center',
+  },
   name: {
     fontFamily: 'OpenSans',
     fontSize: '18px',
@@ -23,10 +26,13 @@ const styles = StyleSheet.create({
   line: {
     borderBottomColor: '#000',
     borderBottomWidth: 1,
-    marginBottom: '5px',
+    marginBottom: 1,
   },
   link: {
     color: 'black',
+  },
+  aboutMe: {
+    fontSize: 10,
   },
 });
 
@@ -47,7 +53,7 @@ const UserDetails = ({ personalDetails, jobDetails }: UserDetailsProps): JSX.Ele
         </Text>
         <Text style={styles.title}>{title}</Text>
       </header>
-      <section style={styles.container}>
+      <section style={styles.secondContainer}>
         <Text style={styles.contactInfo}>
           {address} | {phoneNumber} |&nbsp;
           <Link href={linkedinUrl} style={styles.link}>
@@ -61,7 +67,7 @@ const UserDetails = ({ personalDetails, jobDetails }: UserDetailsProps): JSX.Ele
       </section>
       <section>
         <Heading heading="About Me" />
-        <Text style={{ fontSize: '10px' }}>{aboutMe}</Text>
+        <Text style={styles.aboutMe}>{aboutMe}</Text>
       </section>
     </>
   );
