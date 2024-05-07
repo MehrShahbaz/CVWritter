@@ -1,11 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useJobs } from 'context/jobContext';
 
+import { getJobsForToday } from 'helpers/appHelper';
 import { urls } from 'routes/urls';
 
 import LogoutButton from '../LogoutButton/LogoutButton';
 
 const Navbar = (): JSX.Element => {
+  const { jobs } = useJobs();
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = (): void => {
     setIsOpen(!isOpen);
@@ -22,6 +25,9 @@ const Navbar = (): JSX.Element => {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
+              <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                Applied Today: {getJobsForToday(jobs || [])}
+              </div>
               <Link
                 to={'/'}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"

@@ -1,7 +1,7 @@
 import { Field, FieldArray, useFormikContext } from 'formik';
 import { WorkExperienceType } from 'types/userTypes';
 
-import InputField from 'components/shared/InputField/InputField';
+import InputTextField from 'components/shared/InputTextField/InputTextField';
 
 type ProjectFieldArrayType = {
   experience: WorkExperienceType[];
@@ -44,7 +44,7 @@ const ExperienceDetailsFieldArray = ({ experienceIndex }: ExperienceDetailsField
                       name={`experience.${experienceIndex}.details.${index}`}
                       placeholder="Detail"
                       heading={`Detail: ${index + 1}`}
-                      component={InputField}
+                      component={InputTextField}
                     />
                   </div>
                   <button

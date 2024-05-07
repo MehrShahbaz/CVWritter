@@ -1,13 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { JobCreateType, JobType, JobUpdateType } from 'types/jobTypes';
 
-import { errorNotification } from 'helpers/appHelper';
+import { errorNotification, showNotification } from 'helpers/appHelper';
 
 import { jobActions } from './actions';
 
 export const createJob = async (userId: string, data: JobCreateType): Promise<JobType | null> => {
   try {
-    const response = await jobActions.createjob(userId, data);
+    const response = await jobActions.createjob(userId, data).then((res) => {
+      showNotification({ title: 'Job Created', type: 'success', message: `` });
+
+      return res;
+    });
     const responseData: JobType = response.data;
 
     return responseData;
@@ -44,7 +48,11 @@ export const getJob = async (userId: string, jobId: string): Promise<JobType | n
 
 export const updateJob = async (userId: string, jobId: string, data: JobUpdateType): Promise<JobType | null> => {
   try {
-    const response = await jobActions.updateJob(userId, jobId, data);
+    const response = await jobActions.updateJob(userId, jobId, data).then((res) => {
+      showNotification({ title: 'Job Updated', type: 'success', message: `` });
+
+      return res;
+    });
 
     return response.data;
   } catch (err: any) {

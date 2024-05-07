@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useJobs } from 'context/jobContext';
 
+import { appliedToday } from 'helpers/appHelper';
 import { urls } from 'routes/urls';
 
 const JobCard = (): JSX.Element => {
@@ -12,12 +13,17 @@ const JobCard = (): JSX.Element => {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {jobs.map(({ id, name, description, skills }, index) => (
+      {jobs.map(({ id, name, description, skills, created_at: createdAt }, index) => (
         <div
           key={index}
           style={{ maxHeight: '30rem', overflowY: 'auto' }}
           className="bg-white shadow-md p-4 rounded-md"
         >
+          {appliedToday(createdAt) && (
+            <div className="flex justify-end">
+              <div className="text-sm font-bold text-gray-800">Applied Today</div>
+            </div>
+          )}
           <div className="font-semibold">
             <Link className="text-blue-500 hover:underline" to={`${urls.jobs}/${id}`}>
               {name}

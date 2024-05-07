@@ -12,7 +12,7 @@ import JobCard from './JobCards/JobCard';
 
 const UserJobs = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setJobs } = useJobs();
+  const { jobs, setJobs } = useJobs();
   const authResult = useAuth();
   const { setUser } = useUser();
   const onGetAllJobs = useCallback(() => {
@@ -31,6 +31,10 @@ const UserJobs = (): JSX.Element => {
     onGetUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!jobs) {
+    return <div />;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

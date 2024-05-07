@@ -7,6 +7,7 @@ import { LoadingStateTypes } from 'types/loadingTypes';
 import MyDocument from 'components/PdfDocument/Document';
 import CopyButton from 'components/shared/CopyClipBoardButton/CopyClipBoardButton';
 import UserForm from 'components/UserForm/UserForm';
+import { appliedToday } from 'helpers/appHelper';
 import { getJob } from 'services/jobsService';
 
 const JobDetails = (): JSX.Element => {
@@ -32,11 +33,16 @@ const JobDetails = (): JSX.Element => {
     return <div>Loading!!</div>;
   }
 
-  const { name, description, url, skills } = selectedJob;
+  const { name, description, url, skills, created_at: createdAt } = selectedJob;
 
   return (
     <div className="bg-gray-100 p-9">
       <div className="bg-gray-200 rounded shadow-md mb-5 p-4">
+        {appliedToday(createdAt) && (
+          <div className="flex justify-start">
+            <div className="text-sm font-bold text-gray-800">Applied Today</div>
+          </div>
+        )}
         <div className="flex justify-between align-middle">
           <a href={url} target="_blank" rel="noreferrer" className="text-blue-500 font-bold hover:underline">
             {name}
