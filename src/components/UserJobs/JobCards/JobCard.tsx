@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useJobs } from 'context/jobContext';
 
-import { appliedToday } from 'helpers/appHelper';
+import { formatDate } from 'helpers/appHelper';
 import { urls } from 'routes/urls';
 
 const JobCard = (): JSX.Element => {
@@ -19,11 +19,10 @@ const JobCard = (): JSX.Element => {
           style={{ maxHeight: '30rem', overflowY: 'auto' }}
           className="bg-white shadow-md p-4 rounded-md"
         >
-          {appliedToday(createdAt) && (
-            <div className="flex justify-end">
-              <div className="text-sm font-bold text-gray-800">Applied Today</div>
-            </div>
-          )}
+          <div className="flex justify-end">
+            <div className="text-sm font-bold text-gray-800">{formatDate(createdAt)}</div>
+          </div>
+
           <div className="font-semibold">
             <Link className="text-blue-500 hover:underline" to={`${urls.jobs}/${id}`}>
               {name}

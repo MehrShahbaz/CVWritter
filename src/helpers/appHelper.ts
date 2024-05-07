@@ -116,13 +116,22 @@ export const getJobsForToday = (jobTypes: JobType[]): number => {
   return data.length;
 };
 
-export const appliedToday = (createdAt: number): boolean => {
-  const today = new Date();
+export const formatDate = (timestamp: number): string => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1).getTime();
+  const date = new Date(timestamp * 1000);
+  const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
 
-  today.setHours(0, 0, 0, 0);
-  const createdAtDate = new Date(createdAt * 1000);
+  if (dateOnly === today) {
+    return 'Applied Today';
+  } else if (dateOnly === yesterday) {
+    return 'Applied Yesterday';
+  } else {
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getFullYear()}`;
 
-  createdAtDate.setHours(0, 0, 0, 0);
-
-  return createdAtDate.getTime() === today.getTime();
+    return formattedDate;
+  }
 };
