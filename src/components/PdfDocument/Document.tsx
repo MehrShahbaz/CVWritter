@@ -10,7 +10,6 @@ import UserEducation from './UserEducation/UserEducation';
 import UserProjects from './UserProjects/UserProjects';
 import UserSkills from './UserSkills/UserSkills';
 import UserWorkExperience from './UserWorkExperience/UserWorkExperience';
-import dummyData from './data';
 
 Font.register({
   family: 'OpenSans',
@@ -27,25 +26,24 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: '#fff',
     paddingVertical: 20,
-    paddingHorizontal: 50,
+    paddingHorizontal: 30,
   },
 });
-const MyDocument = (): JSX.Element => {
+
+type MyDocumentProps = {
+  data?: UserDatatype;
+};
+
+const MyDocument = ({ data }: MyDocumentProps): JSX.Element => {
   const { selectedJob } = useJobs();
-  const { personalDetails } = dummyData;
-
-  if (!selectedJob) {
-    return <div />;
-  }
-
-  const userData: UserDatatype = JSON.parse(selectedJob.user_details);
+  const userData: UserDatatype = data || JSON.parse(selectedJob?.user_details ? selectedJob?.user_details : '');
 
   return (
     <div className="p-5">
       <PDFViewer style={{ width: '100%', height: '100vh' }}>
-        <Document title="FirstCV" keywords="CV">
+        <Document title={`${userData.personalDetails.firstName}_CV`} keywords="CV">
           <Page size="A4" style={styles.page}>
-            <UserDetails personalDetails={personalDetails} jobDetails={userData.jobDetails} />
+            <UserDetails personalDetails={userData.personalDetails} jobDetails={userData.jobDetails} />
             <UserEducation education={userData.education} />
             <UserWorkExperience workExperience={userData.experience} />
             <UserProjects projects={userData.projects} />

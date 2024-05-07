@@ -62,3 +62,5 @@ export const emptyExperienceData: WorkExperienceType = {
   endDate: '',
   details: [''],
 };
+
+// export const userId = 'UW35UY6HZfX7Uk5GpBkre6OzLJG2';

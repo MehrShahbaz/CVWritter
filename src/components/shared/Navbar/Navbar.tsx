@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useJobs } from 'context/jobContext';
+
+import { getJobsForToday } from 'helpers/appHelper';
+import { urls } from 'routes/urls';
 
 import LogoutButton from '../LogoutButton/LogoutButton';
 
 const Navbar = (): JSX.Element => {
+  const { jobs } = useJobs();
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = (): void => {
     setIsOpen(!isOpen);
@@ -15,11 +20,14 @@ const Navbar = (): JSX.Element => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <span className="text-white font-bold">Your Logo</span>
+              <span className="text-white font-bold">Custom CV</span>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
+              <div className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                Applied Today: {getJobsForToday(jobs || [])}
+              </div>
               <Link
                 to={'/'}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
@@ -27,23 +35,11 @@ const Navbar = (): JSX.Element => {
                 Home
               </Link>
               <Link
-                to="/"
+                to={urls.user}
                 className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                About
+                User Details
               </Link>
-              <Link
-                to="/"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Services
-              </Link>
-              <button
-                onClick={() => window.location.reload()}
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-              >
-                Reload
-              </button>
               <LogoutButton />
             </div>
           </div>
@@ -75,7 +71,7 @@ const Navbar = (): JSX.Element => {
         </div>
       </div>
       <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="flex-col px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <Link
             to="/"
             className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -83,16 +79,10 @@ const Navbar = (): JSX.Element => {
             Home
           </Link>
           <Link
-            to="/"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            to={urls.user}
+            className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            About
-          </Link>
-          <Link
-            to="/"
-            className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Services
+            User Details
           </Link>
           <LogoutButton />
         </div>

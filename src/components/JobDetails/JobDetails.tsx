@@ -1,23 +1,28 @@
 import { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useJobs } from 'context/jobContext';
+import { useAuth } from 'layout/Layout';
+import { LoadingStateTypes } from 'types/loadingTypes';
 
 import MyDocument from 'components/PdfDocument/Document';
+import CopyButton from 'components/shared/CopyClipBoardButton/CopyClipBoardButton';
 import UserForm from 'components/UserForm/UserForm';
+import { formatDate } from 'helpers/appHelper';
 import { getJob } from 'services/jobsService';
 
 const JobDetails = (): JSX.Element => {
   const { productId } = useParams<{ productId: string }>();
   const { setSelectedJob, selectedJob } = useJobs();
+  const authResult = useAuth();
   const onGetJob = useCallback(() => {
-    if (productId) {
-      getJob(productId).then((res) => {
+    if (productId && authResult.type === LoadingStateTypes.LOADED) {
+      getJob(authResult.user.uid, productId).then((res) => {
         if (res) {
           setSelectedJob(res);
         }
       });
     }
-  }, [productId, setSelectedJob]);
+  }, [productId, setSelectedJob, authResult]);
 
   useEffect(() => {
     onGetJob();
@@ -28,15 +33,21 @@ const JobDetails = (): JSX.Element => {
     return <div>Loading!!</div>;
   }
 
-  const { name, description, url, skills } = selectedJob;
+  const { name, description, url, skills, created_at: createdAt } = selectedJob;
 
   return (
     <div className="bg-gray-100 p-9">
       <div className="bg-gray-200 rounded shadow-md mb-5 p-4">
-        <div>
+        <div className="flex justify-start">
+          <div className="text-sm font-bold text-gray-800">{formatDate(createdAt)}</div>
+        </div>
+        <div className="flex justify-between align-middle">
           <a href={url} target="_blank" rel="noreferrer" className="text-blue-500 font-bold hover:underline">
             {name}
           </a>
+          <div>
+            <CopyButton data={description} />
+          </div>
         </div>
         <div className="text-gray-700 mt-2">{description}</div>
         <div className="mt-2">

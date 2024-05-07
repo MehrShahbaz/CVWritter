@@ -1,23 +1,40 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useJobs } from 'context/jobContext';
+import { useUser } from 'context/userContext';
+import { useAuth } from 'layout/Layout';
+import { LoadingStateTypes } from 'types/loadingTypes';
 
 import { getAllJobs } from 'services/jobsService';
+import { getUser } from 'services/userService';
 
 import AddJobsModal from './AddJobsModal/AddJobsModal';
 import JobCard from './JobCards/JobCard';
 
 const UserJobs = (): JSX.Element => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setJobs } = useJobs();
+  const { jobs, setJobs } = useJobs();
+  const authResult = useAuth();
+  const { setUser } = useUser();
+  const onGetAllJobs = useCallback(() => {
+    if (authResult.type === LoadingStateTypes.LOADED) {
+      getAllJobs(authResult.user.uid).then((res) => setJobs(res));
+    }
+  }, [setJobs, authResult]);
+  const onGetUser = useCallback(() => {
+    if (authResult.type === LoadingStateTypes.LOADED) {
+      getUser(authResult.user.uid).then((res) => setUser(res));
+    }
+  }, [setUser, authResult]);
 
   useEffect(() => {
     onGetAllJobs();
+    onGetUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const onGetAllJobs = useCallback(() => {
-    getAllJobs().then((res) => setJobs(res));
-  }, [setJobs]);
+  if (!jobs) {
+    return <div />;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">

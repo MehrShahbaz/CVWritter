@@ -44,11 +44,16 @@ export type UserDatatype = {
   skills: string[];
 };
 
-export type GoogleUserCreateType = {
+export type UserCreateType = {
+  uid: string | null;
   email: string | null;
-  emailVerified: boolean;
-  displayName: string | null;
-  photoURL: string | null;
+  name: string | null;
+  details: string;
+};
+
+export type UserUpdateType = {
+  name?: string | null;
+  details?: string;
 };
 
 export type UserComponentType = {
@@ -64,4 +69,12 @@ export type DetailsEditProps = {
   handleUpdate: (data: UserDatatype) => void;
   userData: UserDatatype;
   setShowFalse: () => void;
+};
+
+export type UserType = {
+  id: string;
+  uid: string;
+  email: string;
+  name: string;
+  details: string;
 };

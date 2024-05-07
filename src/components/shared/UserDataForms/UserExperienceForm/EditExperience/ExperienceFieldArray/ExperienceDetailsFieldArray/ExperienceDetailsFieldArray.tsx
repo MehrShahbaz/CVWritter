@@ -1,26 +1,26 @@
 import { Field, FieldArray, useFormikContext } from 'formik';
-import { ProjectsType } from 'types/userTypes';
+import { WorkExperienceType } from 'types/userTypes';
 
-import InputField from 'components/shared/InputField/InputField';
+import InputTextField from 'components/shared/InputTextField/InputTextField';
 
 type ProjectFieldArrayType = {
-  projects: ProjectsType[];
+  experience: WorkExperienceType[];
 };
 
-type ProjectDetailsFieldArrayProps = {
-  projectIndex: number;
+type ExperienceDetailsFieldArrayProps = {
+  experienceIndex: number;
 };
 
-const ProjectDetailsFieldArray = ({ projectIndex }: ProjectDetailsFieldArrayProps): JSX.Element => {
+const ExperienceDetailsFieldArray = ({ experienceIndex }: ExperienceDetailsFieldArrayProps): JSX.Element => {
   const { values } = useFormikContext<ProjectFieldArrayType>();
 
   return (
     <FieldArray
-      name={`projects.${projectIndex}.details`}
+      name={`experience.${experienceIndex}.details`}
       render={(arrayHelpers) => {
         const { remove, push } = arrayHelpers;
-        const { projects } = values;
-        const { details } = projects[projectIndex];
+        const { experience } = values;
+        const { details } = experience[experienceIndex];
         const isDisabled = details?.length === 1;
 
         return (
@@ -41,10 +41,10 @@ const ProjectDetailsFieldArray = ({ projectIndex }: ProjectDetailsFieldArrayProp
                   <div className="flex-grow mr-2">
                     <Field
                       type="text"
-                      name={`projects.${projectIndex}.details.${index}`}
+                      name={`experience.${experienceIndex}.details.${index}`}
                       placeholder="Detail"
                       heading={`Detail: ${index + 1}`}
-                      component={InputField}
+                      component={InputTextField}
                     />
                   </div>
                   <button
@@ -69,4 +69,4 @@ const ProjectDetailsFieldArray = ({ projectIndex }: ProjectDetailsFieldArrayProp
   );
 };
 
-export default ProjectDetailsFieldArray;
+export default ExperienceDetailsFieldArray;

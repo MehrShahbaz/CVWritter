@@ -1,9 +1,12 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
+import { useUser } from 'context/userContext';
+import { LoginDataType } from 'types/loginTypes';
 
-import Input from 'components/shared/Input/Input';
-import LoadingButton from 'components/shared/LoadingButton/LoadingButton';
-import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
+import LogInForm from 'components/shared/LogInForm/LogInForm';
+// import LoginWithGoogleButton from 'components/shared/LoginWithGoogleButton/LoginWithGoogleButton';
 import Modal from 'components/shared/Modal/Modal';
+import { urls } from 'routes/urls';
+import { getUser } from 'services/userService';
 
 import { loginWithEmail } from '../../services/authenticationSerive';
 
@@ -13,51 +16,34 @@ interface SignUpModalProps {
 }
 
 const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isDisableSubmit, setDisableSubmit] = useState(true);
+  const { setUser } = useUser();
+  const signUpWithEmail = useCallback(
+    async (data: LoginDataType) => {
+      const { email, password } = data;
 
-  useEffect(() => {
-    if (email) {
-      setDisableSubmit(false);
-    } else {
-      setDisableSubmit(true);
-    }
-  }, [email, password]);
-
-  const signUpWithEmail = useCallback(async () => {
-    await loginWithEmail({
-      type: 'sign-up',
-      email,
-      password,
-    }).then(() => {
-      setOpen(false);
-    });
-  }, [email, password, setOpen]);
+      await loginWithEmail({
+        type: 'sign-up',
+        email,
+        password,
+      }).then((res) => {
+        getUser(res).then((response) => {
+          if (response) {
+            setUser(response);
+            window.location.href = urls.home;
+          }
+        });
+        setOpen(false);
+      });
+    },
+    [setOpen, setUser]
+  );
 
   return (
     <Modal show={isOpen} setShow={setOpen} heading="Sign Up">
       <div className="max-w-md w-full bg-white rounded-lg">
-        <div className="px-4 flex p-4 pb-10 gap-4 flex-col">
-          <Input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            name="email"
-            type="text"
-          />
-          <Input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            name="password"
-            type="password"
-          />
-
-          <LoadingButton onClick={signUpWithEmail} disabled={isDisableSubmit}>
-            Sign Up
-          </LoadingButton>
-          <div className="relative">
+        <div className="px-2 flex pb-10 gap-4 flex-col">
+          <LogInForm handleSubmit={signUpWithEmail} />
+          {/* <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />
             </div>
@@ -67,7 +53,7 @@ const SignUpModal = ({ isOpen, setOpen }: SignUpModalProps): JSX.Element => {
           </div>
           <div className="mt-2 grid grid-cols-1 gap-3">
             <LoginWithGoogleButton />
-          </div>
+          </div> */}
         </div>
       </div>
     </Modal>

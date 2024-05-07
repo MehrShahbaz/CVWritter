@@ -7,6 +7,7 @@ export type JobType = {
   skills: SkillType[];
   url: string;
   user_details: string;
+  created_at: number;
 };
 
 export type JobFormType = {

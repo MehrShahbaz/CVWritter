@@ -21,7 +21,7 @@ const SelectSkills = ({ field, form }: FieldProps): JSX.Element => {
 
   return (
     <div>
-      <div className="block ml-2 text-sm text-gray-500 font-light">Categories</div>
+      <div className="block ml-2 text-sm text-gray-500 font-light z-10">Skills</div>
       <Select
         {...field}
         options={skills?.length ? skills : []}

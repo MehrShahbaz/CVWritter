@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Store } from 'react-notifications-component';
 import { User } from 'firebase/auth';
-import { GoogleUserCreateType } from 'types/userTypes';
+import { JobType } from 'types/jobTypes';
+import { UserCreateType, UserDatatype } from 'types/userTypes';
+
+import { emptyUserDetailsData } from 'constants/jobConstants';
 
 export const isEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,12 +38,18 @@ export const chunkArray = (array: string[], n: number): string[][] => {
 export const convertDate = (startDate?: string, endDate?: string): string =>
   `${startDate?.length ? startDate : 'Start'} - ${endDate?.length ? endDate : 'End'}`;
 
-export const createUserData = (user: User): GoogleUserCreateType => ({
-  email: user.email,
-  emailVerified: user.emailVerified,
-  displayName: user.displayName,
-  photoURL: user.photoURL,
-});
+export const createUserData = (user: User): UserCreateType => {
+  const { personalDetails } = emptyUserDetailsData;
+  const tempData = { ...personalDetails, email: user.email || '' };
+  const data: UserDatatype = { ...emptyUserDetailsData, personalDetails: tempData };
+
+  return {
+    uid: user.uid,
+    email: user.email,
+    name: '',
+    details: JSON.stringify(data),
+  };
+};
 
 type ShowNotificationProps = {
   title: string;
@@ -78,5 +87,51 @@ export const errorNotification = (err: any, duration?: number): void => {
     showNotification({ title: data.error || 'Error', type: 'danger', message: data.exception || 'Error', duration });
   } else {
     throw err;
+  }
+};
+
+export const cvDataString = (jobDescription: string): string => `
+You are a professional CV generator tasked with creating a beautifully crafted CV based on the provided layout and a specific job description. Your task is to generate the CV by incorporating the details of the individual's personal information, job details, education, work experience, projects, and skills, as well as extracting relevant skills from the provided job description.
+
+The job description is : ${jobDescription}
+
+Your task is to generate a CV based on this layout and the provided job description. Ensure that the CV includes all necessary details and is well-structured and visually appealing
+
+Give me a JSON String to copy as a response
+`;
+
+export const getJobsForToday = (jobTypes: JobType[]): number => {
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for accurate comparison
+
+  const data = jobTypes.filter((job) => {
+    const createdAtDate = new Date(job.created_at * 1000); // Convert timestamp to milliseconds
+
+    createdAtDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for accurate comparison
+
+    return createdAtDate.getTime() === today.getTime();
+  });
+
+  return data.length;
+};
+
+export const formatDate = (timestamp: number): string => {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1).getTime();
+  const date = new Date(timestamp * 1000);
+  const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+
+  if (dateOnly === today) {
+    return 'Applied Today';
+  } else if (dateOnly === yesterday) {
+    return 'Applied Yesterday';
+  } else {
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getFullYear()}`;
+
+    return formattedDate;
   }
 };

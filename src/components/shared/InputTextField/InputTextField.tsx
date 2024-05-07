@@ -7,9 +7,10 @@ type InputTextFieldProps = {
   heading: string;
   errors?: string;
   [key: string]: any;
+  minHeight?: number;
 };
 
-const InputTextField = ({ field, heading, errors, ...props }: InputTextFieldProps): JSX.Element => {
+const InputTextField = ({ field, heading, errors, minHeight, ...props }: InputTextFieldProps): JSX.Element => {
   const [isBlur, setIsBlur] = useState(false);
   const handleFocus = useCallback((isBlured: boolean) => {
     setIsBlur(isBlured);
@@ -21,6 +22,7 @@ const InputTextField = ({ field, heading, errors, ...props }: InputTextFieldProp
         {heading}
       </label>
       <textarea
+        style={{ height: minHeight ?? 100 }}
         {...field}
         {...props}
         onBlur={() => handleFocus(true)}

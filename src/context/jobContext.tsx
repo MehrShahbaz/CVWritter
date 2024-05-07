@@ -25,7 +25,7 @@ export const JobsProvider = ({ children }: ContextProviderProps): JSX.Element =>
     let newData: JobType[] = [];
 
     if (jobs) {
-      newData = [...jobs, data];
+      newData = [data, ...jobs];
     } else {
       newData = [data];
     }

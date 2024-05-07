@@ -5,7 +5,7 @@ const sharedSchema = {
   startDate: string().min(3).required('Start Date is Required'),
   endDate: string().min(3).required('End Date is Required'),
   title: string().min(2).required('Title is Required'),
-  details: array().of(string().min(2).required('Detail is Required')).min(1),
+  details: array().of(string().min(2)),
 };
 
 export const educationFromSchema = object({
@@ -14,6 +14,15 @@ export const educationFromSchema = object({
   location: sharedSchema.location,
   startDate: sharedSchema.startDate,
   endDate: sharedSchema.endDate,
+});
+
+export const personalDetailsSchema = object({
+  firstName: string().min(3).required('First Name is Required'),
+  lastName: string().min(3).required('Last Name is Required'),
+  address: string().min(3).required('Address is Required'),
+  linkedinUrl: string().url().required('Address is Required'),
+  phoneNumber: string().min(10).required('Address is Required'),
+  email: string().email().required('Address is Required'),
 });
 
 export const jobDetailsFormSchema = object({

@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useJobs } from 'context/jobContext';
 import { useSkill } from 'context/skillContext';
+import { useUser } from 'context/userContext';
 import { Field, Form, Formik } from 'formik';
 import { jobCreateFrom } from 'schema/jobSchema';
 import { JobCreateType, JobFormType } from 'types/jobTypes';
@@ -9,7 +10,7 @@ import InputField from 'components/shared/InputField/InputField';
 import InputTextField from 'components/shared/InputTextField/InputTextField';
 import Modal from 'components/shared/Modal/Modal';
 import SelectSkills from 'components/shared/SelectSkills/SelectSkills';
-import { emptyUserDetailsData, FORM_INTIAL_VALUES } from 'constants/jobConstants';
+import { FORM_INTIAL_VALUES } from 'constants/jobConstants';
 import { createJob } from 'services/jobsService';
 import { getAllSkills } from 'services/skillService';
 
@@ -21,6 +22,7 @@ type AddJobsModalProps = {
 const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
   const { setSkills } = useSkill();
   const { appendJob } = useJobs();
+  const { user } = useUser();
 
   useEffect(() => {
     onGetAllSkills();
@@ -32,22 +34,25 @@ const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
   }, [setSkills]);
   const handleSubmit = useCallback(
     (values: JobFormType) => {
-      const data: JobCreateType = {
-        name: values.name,
-        description: values.description,
-        url: values.url,
-        skill_ids: values.skills.map(({ id }) => id),
-        user_details: JSON.stringify(emptyUserDetailsData),
-      };
+      if (user) {
+        const details = user.details;
+        const data: JobCreateType = {
+          name: values.name,
+          description: values.description,
+          url: values.url,
+          skill_ids: values.skills.map(({ id }) => id),
+          user_details: details,
+        };
 
-      createJob(data).then((res) => {
-        if (res) {
-          appendJob(res);
-          setOpen(false);
-        }
-      });
+        createJob(user.uid, data).then((res) => {
+          if (res) {
+            appendJob(res);
+            setOpen(false);
+          }
+        });
+      }
     },
-    [appendJob, setOpen]
+    [appendJob, setOpen, user]
   );
 
   return (
@@ -84,23 +89,23 @@ const AddJobsModal = ({ isOpen, setOpen }: AddJobsModalProps): JSX.Element => {
                       component={InputTextField}
                     />
                     <Field name="skills" component={SelectSkills} />
-                    <div className="flex justify-end gap-4 mt-3">
-                      <button
-                        onClick={() => setOpen(false)}
-                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
-                      >
-                        Cancel
-                      </button>
-                      <button
-                        type="submit"
-                        className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none ${
-                          !isDirty || !isValid ? 'opacity-50 cursor-not-allowed' : ''
-                        }`}
-                        disabled={!isDirty || !isValid}
-                      >
-                        Submit
-                      </button>
-                    </div>
+                  </div>
+                  <div className="flex justify-end gap-4 mt-3">
+                    <button
+                      onClick={() => setOpen(false)}
+                      className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className={`px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none ${
+                        !isDirty || !isValid ? 'opacity-50 cursor-not-allowed' : ''
+                      }`}
+                      disabled={!isDirty || !isValid}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </Form>
               )}
